@@ -12,19 +12,30 @@ $ npm install rax-page-layout --save
 import { PageLayout, PageHeader, PageFooter, PageMain } from 'rax-page-layout';
 ```
 
-## API
+## Components
 
-### Props
+### PageLayout
+
+Layout view for a page.
+
+#### Props
 
 |name|type|default|describe|
 |:---------------|:--------|:----|:----------|
-|name|String|''|describe|
+| children | RaxNode | - | PageMain \| PageHeader \| PageFooter |
 
-### Function
+### PageMain
 
-|name|param|return|describe|
+Main content container for a page.
+
+#### Props
+
+|name|type|default|describe|
 |:---------------|:--------|:----|:----------|
-|name|Object|/|describe|
+| children | RaxNode | - | - |
+| hasPullToRefresh | boolean | false | - |
+
+### PageHeader/PageFooter
 
 ## Example
 
