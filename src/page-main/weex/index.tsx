@@ -8,10 +8,10 @@ import styles from './styles';
 import PullToRefreshIndicator, {
   height as PullToRefreshIndicatorHeight,
   PullToRefreshIndicatorProps,
-} from '../../components/pull-to-refresh-indicator';
+  PullToRefreshState,
+} from 'rax-pull-to-refresh-indicator';
 
 import { toUnitValue } from '../../utils/unit';
-import { PullToRefreshState } from '../../types';
 
 export interface PageMainProps extends ScrollViewProps {
   children: RaxNode;

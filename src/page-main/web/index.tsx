@@ -10,9 +10,9 @@ import styles from './styles';
 import PullToRefreshIndicator, {
   height as PullToRefreshIndicatorHeight,
   PullToRefreshIndicatorProps,
-} from '../../components/pull-to-refresh-indicator';
+  PullToRefreshState,
+} from 'rax-pull-to-refresh-indicator';
 
-import { PullToRefreshState } from '../../types';
 import { getViewportHeight, toUnitValue, easeOutCubic } from '../../utils';
 
 export interface PageMainProps extends ScrollViewProps {
@@ -204,6 +204,9 @@ const PageMain = (props: PageMainProps) => {
           {hasPullToRefresh
             ? props.renderPullToRefreshIndicator({
                 state: ptrState,
+                hasIcon: true,
+                hasText: true,
+                style: { position: 'absolute', transform: 'translateY(-100%)' },
               })
             : null}
           <View>{children}</View>
