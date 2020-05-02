@@ -1,8 +1,8 @@
 {
   "name": "rax-page-layout",
   "author": "Hanai",
-  "version": "0.0.2",
-  "description": "## Install",
+  "version": "0.0.3",
+  "description": "Classic page layout for rax application.",
   "main": "lib/index.js",
   "module": "src/index.js",
   "files": [

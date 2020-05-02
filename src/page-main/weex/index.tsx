@@ -111,7 +111,7 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleTouchCancel = (e) => {
-    alert('TouchCancel');
+    props.onTouchCancel && props.onTouchCancel(e);
   };
 
   return (
@@ -130,6 +130,7 @@ const PageMain = (props: PageMainProps) => {
           {hasPullToRefresh
             ? props.renderPullToRefreshIndicator({
                 style: {
+                  position: 'absolute',
                   transform: `translateY(${
                     transformY - pullToRefreshIndicatorHeight
                   }rpx)`,

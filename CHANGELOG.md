@@ -1,3 +1,7 @@
+## 0.0.3 (May 2, 2020)
+
+* import rax-pull-to-refresh-indicator
+
 ## 0.0.2 (May 1, 2020)
 
 * Update readme and changelog
