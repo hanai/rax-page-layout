@@ -49,6 +49,13 @@ const transformYView = (ref, start: number, end: number, cb?: () => any) => {
   );
 };
 
+const preventDefault = (e) => {
+  if (e.cancelable !== false) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+};
+
 const PageMain = (props: PageMainProps) => {
   const { children, hasPullToRefresh, pullToRefreshIndicatorHeight } = props;
   const scrollViewRef = useRef(null);
@@ -77,24 +84,14 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleScroll = (e) => {
+    if (hasPullToRefresh && ptrFlagRef.current) {
+      preventDefault(e); // prevent list scroll when ptr
+    }
+
     props.onScroll && props.onScroll(e);
   };
 
   const handleTouchStart = (e) => {
-    const scrollTop = getScrollTop();
-    if (hasPullToRefresh) {
-      if (e && e.changedTouches && e.changedTouches.length) {
-        if (scrollTop === 0) {
-          const y = toUnitValue(e.changedTouches[0].screenY);
-
-          ptrFlagRef.current = true;
-          ptrStartYRef.current = y;
-        } else {
-          ptrFlagRef.current = false;
-        }
-      }
-    }
-
     props.onTouchStart && props.onTouchStart(e);
   };
 
@@ -109,6 +106,8 @@ const PageMain = (props: PageMainProps) => {
           ptrStartYRef.current = y;
           // first emmit, pass follow logic
         } else if (ptrFlagRef.current) {
+          preventDefault(e); // prevent list scroll when ptr
+
           const delta = easeOutCubic(
             y - ptrStartYRef.current,
             viewportHeight,
@@ -185,6 +184,15 @@ const PageMain = (props: PageMainProps) => {
     }
   };
 
+  const scrollViewStyle = Object.assign(
+    styles.scrollView,
+    hasPullToRefresh
+      ? {
+          overscrollBehavior: 'contain', // to disable chrome browser default behavior
+        }
+      : null
+  );
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -195,7 +203,7 @@ const PageMain = (props: PageMainProps) => {
         onTouchEnd={handleTouchEnd}
         onTouchCancel={handleTouchCancel}
         showsHorizontalScrollIndicator={false}
-        style={styles.scrollView}
+        style={scrollViewStyle}
       >
         <View
           ref={transformViewRef}

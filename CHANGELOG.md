@@ -1,3 +1,7 @@
+## 0.0.4 (May 2, 2020)
+
+* bug fix
+
 ## 0.0.3 (May 2, 2020)
 
 * import rax-pull-to-refresh-indicator
