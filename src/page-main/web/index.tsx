@@ -1,6 +1,13 @@
-import { createElement, RaxNode, useRef, useState, useEffect } from 'rax';
+import {
+  createElement,
+  RaxNode,
+  useRef,
+  useState,
+  useEffect,
+  UIEventHandler,
+  TouchEventHandler,
+} from 'rax';
 import View from 'rax-view';
-import ScrollView, { ScrollViewProps } from 'rax-scrollview';
 import findDOMNode from 'rax-find-dom-node';
 
 // @ts-ignore
@@ -13,16 +20,23 @@ import PullToRefreshIndicator, {
   PullToRefreshState,
 } from 'rax-pull-to-refresh-indicator';
 
-import { getViewportHeight, toUnitValue, easeOutCubic } from '../../utils';
+import { toUnitValue, useEventCallback } from '../../utils';
 
-export interface PageMainProps extends ScrollViewProps {
+export interface PageMainProps {
   children: RaxNode;
+  isRefreshing?: boolean;
   hasPullToRefresh?: boolean;
   renderPullToRefreshIndicator?: (
     props: PullToRefreshIndicatorProps
   ) => RaxNode;
   pullToRefreshIndicatorHeight?: number;
+
   onPullToRefresh?: () => any;
+  onScroll?: UIEventHandler<HTMLDivElement>;
+  onTouchStart?: TouchEventHandler<HTMLDivElement>;
+  onTouchEnd?: TouchEventHandler<HTMLDivElement>;
+  onTouchMove?: TouchEventHandler<HTMLDivElement>;
+  onTouchCancel?: TouchEventHandler<HTMLDivElement>;
 }
 
 const renderPullToRefreshIndicator = (props: PullToRefreshIndicatorProps) => {
@@ -49,30 +63,33 @@ const transformYView = (ref, start: number, end: number, cb?: () => any) => {
   );
 };
 
-const preventDefault = (e) => {
-  if (e.cancelable !== false) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
-};
-
 const PageMain = (props: PageMainProps) => {
   const { children, hasPullToRefresh, pullToRefreshIndicatorHeight } = props;
-  const scrollViewRef = useRef(null);
+
+  const scrollViewRef = useRef<HTMLDivElement>(null);
+  const transformViewRef = useRef<HTMLDivElement>(null); // transformView was used for animation or transform
+
+  const prevIsRefreshing = useRef<boolean>(props.isRefreshing);
   const ptrFlagRef = useRef<boolean>(false);
   const ptrStartYRef = useRef<number>(0);
-  const transformViewRef = useRef(null); // transformView was used for animation or transform
-
-  const [viewportHeight, setViewportHeight] = useState<number>(0);
-
-  useEffect(() => {
-    getViewportHeight(setViewportHeight);
-  }, []);
+  const scrollTopRef = useRef<number>(0); // keep scrollTop for use
 
   const [transformY, setTransformY] = useState<number>(0);
   const [ptrState, setPtrState] = useState<PullToRefreshState>(
     PullToRefreshState.STATIC
   );
+
+  useEffect(() => {
+    window.requestAnimationFrame(enablePTRIfNeeded);
+  }, []);
+
+  useEffect(() => {
+    if (prevIsRefreshing.current && !props.isRefreshing) {
+      disablePTR();
+      window.requestAnimationFrame(enablePTRIfNeeded);
+    }
+    prevIsRefreshing.current = props.isRefreshing;
+  }, [props.isRefreshing]);
 
   const getScrollTop: () => number = () => {
     const node = findDOMNode(scrollViewRef.current);
@@ -84,9 +101,14 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleScroll = (e) => {
-    if (hasPullToRefresh && ptrFlagRef.current) {
-      preventDefault(e); // prevent list scroll when ptr
+    // requestAnimationFrame(() => {
+    const scrollTop = getScrollTop();
+    scrollTopRef.current = scrollTop;
+
+    if (hasPullToRefresh) {
+      scrollTop <= 0 ? enablePTR() : disablePTR();
     }
+    // });
 
     props.onScroll && props.onScroll(e);
   };
@@ -96,66 +118,10 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleTouchMove = (e) => {
-    const scrollTop = getScrollTop();
-    if (hasPullToRefresh) {
-      if (e && e.changedTouches && e.changedTouches.length) {
-        const y = toUnitValue(e.changedTouches[0].screenY);
-
-        if (!ptrFlagRef.current && scrollTop === 0) {
-          ptrFlagRef.current = true;
-          ptrStartYRef.current = y;
-          // first emmit, pass follow logic
-        } else if (ptrFlagRef.current) {
-          preventDefault(e); // prevent list scroll when ptr
-
-          const delta = easeOutCubic(
-            y - ptrStartYRef.current,
-            viewportHeight,
-            viewportHeight / 4
-          );
-
-          if (delta > 0) {
-            setTransformY(delta);
-            if (delta > PullToRefreshIndicatorHeight) {
-              setPtrState(PullToRefreshState.READY);
-            } else {
-              setPtrState(PullToRefreshState.PULLING);
-            }
-          } else {
-            setTransformY(0);
-            ptrFlagRef.current = false;
-          }
-        }
-      }
-    }
-
     props.onTouchMove && props.onTouchMove(e);
   };
 
   const handleTouchEnd = (e) => {
-    if (hasPullToRefresh) {
-      if (ptrFlagRef.current) {
-        ptrFlagRef.current = false;
-
-        if (ptrState === PullToRefreshState.PULLING) {
-          transformYView(transformViewRef, transformY, 0, () => {
-            setPtrState(PullToRefreshState.STATIC);
-          });
-        } else if (ptrState === PullToRefreshState.READY) {
-          transformYView(
-            transformViewRef,
-            transformY,
-            pullToRefreshIndicatorHeight,
-            () => {
-              setPtrState(PullToRefreshState.REFRESHING);
-            }
-          );
-
-          handlePullToRefresh();
-        }
-      }
-    }
-
     props.onTouchEnd && props.onTouchEnd(e);
   };
 
@@ -163,11 +129,87 @@ const PageMain = (props: PageMainProps) => {
     props.onTouchCancel && props.onTouchCancel(e);
   };
 
+  const handlePtrTouchStart = useEventCallback((e) => {
+    const y = toUnitValue(e.touches[0].screenY);
+    ptrStartYRef.current = y;
+  }, []);
+
+  const handlePtrTouchMove = useEventCallback((e) => {
+    const y = toUnitValue(e.touches[0].screenY);
+
+    const delta = Math.round(0.4 * (y - ptrStartYRef.current));
+
+    if (delta <= 0 && transformY === 0) {
+    } else {
+      if (delta > 0 && e.cancelable !== false) {
+        e.preventDefault();
+      }
+
+      setTransformY(delta);
+
+      if (delta > pullToRefreshIndicatorHeight) {
+        setPtrState(PullToRefreshState.READY);
+      } else {
+        setPtrState(PullToRefreshState.PULLING);
+      }
+    }
+  }, []);
+
+  const handlePtrTouchEnd = useEventCallback((e) => {
+    if (ptrState === PullToRefreshState.PULLING) {
+      transformYView(transformViewRef, transformY, 0, () => {
+        setPtrState(PullToRefreshState.STATIC);
+        setTransformY(0);
+      });
+    } else if (ptrState === PullToRefreshState.READY) {
+      transformYView(
+        transformViewRef,
+        transformY,
+        pullToRefreshIndicatorHeight,
+        () => {
+          setPtrState(PullToRefreshState.REFRESHING);
+          setTransformY(pullToRefreshIndicatorHeight);
+        }
+      );
+
+      disablePTR();
+
+      handlePullToRefresh();
+    }
+  }, []);
+
+  const enablePTRIfNeeded = () => {
+    if (hasPullToRefresh && getScrollTop() <= 0) {
+      enablePTR();
+    }
+  };
+
+  const enablePTR = () => {
+    if (!ptrFlagRef.current) {
+      ptrFlagRef.current = true;
+      const scrollView = scrollViewRef.current;
+
+      scrollView.addEventListener('touchstart', handlePtrTouchStart);
+      scrollView.addEventListener('touchmove', handlePtrTouchMove);
+      scrollView.addEventListener('touchend', handlePtrTouchEnd);
+    }
+  };
+
+  const disablePTR = () => {
+    if (ptrFlagRef.current) {
+      ptrFlagRef.current = false;
+      const scrollView = scrollViewRef.current;
+      scrollView.removeEventListener('touchstart', handlePtrTouchStart);
+      scrollView.removeEventListener('touchmove', handlePtrTouchMove);
+      scrollView.removeEventListener('touchend', handlePtrTouchEnd);
+    }
+  };
+
   const afterPtr = () => {
     setPtrState(PullToRefreshState.RETRACTING);
     transformYView(transformViewRef, pullToRefreshIndicatorHeight, 0, () => {
-      // it's ok without reset state: transformY
       setPtrState(PullToRefreshState.STATIC);
+      setTransformY(0);
     });
   };
 
@@ -184,42 +226,47 @@ const PageMain = (props: PageMainProps) => {
     }
   };
 
-  const scrollViewStyle = Object.assign(
-    styles.scrollView,
+  const containerStyle = Object.assign(
+    styles.container,
     hasPullToRefresh
       ? {
-          overscrollBehavior: 'contain', // to disable chrome browser default behavior
+          overscrollBehavior: 'none', // to disable chrome browser default behavior
         }
       : null
   );
 
+  const transformViewStyle = Object.assign(styles.transformView, {
+    transform: `translate3d(0, ${transformY}rpx, 0)`,
+  });
+
+  const pageMainContentStyle =
+    transformY > 0
+      ? {
+          transform: 'translate3d(0, 0, 0)',
+        }
+      : null;
+
   return (
-    <View style={styles.container}>
-      <ScrollView
-        ref={scrollViewRef}
-        onScroll={handleScroll}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onTouchCancel={handleTouchCancel}
-        showsHorizontalScrollIndicator={false}
-        style={scrollViewStyle}
-      >
-        <View
-          ref={transformViewRef}
-          style={{ transform: `translateY(${transformY}rpx)` }}
-        >
-          {hasPullToRefresh
-            ? props.renderPullToRefreshIndicator({
-                state: ptrState,
-                hasIcon: true,
-                hasText: true,
-                style: { position: 'absolute', transform: 'translateY(-100%)' },
-              })
-            : null}
-          <View>{children}</View>
-        </View>
-      </ScrollView>
+    <View
+      style={containerStyle}
+      ref={scrollViewRef}
+      onScroll={handleScroll}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
+    >
+      <View ref={transformViewRef} style={transformViewStyle}>
+        {hasPullToRefresh
+          ? props.renderPullToRefreshIndicator({
+              state: ptrState,
+              hasIcon: true,
+              hasText: true,
+              style: { position: 'absolute', transform: 'translateY(-100%)' },
+            })
+          : null}
+        <View style={pageMainContentStyle}>{children}</View>
+      </View>
     </View>
   );
 };
@@ -228,6 +275,7 @@ PageMain.defaultProps = {
   renderPullToRefreshIndicator,
   pullToRefreshIndicatorHeight: PullToRefreshIndicatorHeight,
   hasPullToRefresh: false,
+  isRefreshing: false,
 };
 
 export default PageMain;

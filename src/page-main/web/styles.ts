@@ -3,10 +3,11 @@ import { CSSProperties } from '@rax-types/rax';
 const styles: { [key: string]: CSSProperties } = {
   container: {
     flex: 1,
-    overflow: 'hidden',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
   },
-  scrollView: {
-    flex: 1,
+  transformView: {
+    overflow: 'visible',
   },
 };
 
