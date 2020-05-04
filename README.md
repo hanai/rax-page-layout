@@ -2,7 +2,8 @@
 
 Classic page layout for rax application.
 
-[![rax-page-layout in Firefox for Android](https://res.cloudinary.com/marcomontalbano/image/upload/v1588403928/video_to_markdown/images/youtube--5F2Z4Mm5UGA-4834888bcd2b4555e72811f2a6951e10.jpg)](https://youtu.be/5F2Z4Mm5UGA "rax-page-layout in Firefox for Android")
+[preview](https://blog.ihanai.com/rax-page-layout/build/web/index.html)
+![preview](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png)
 
 ## Install
 
