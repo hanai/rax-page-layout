@@ -1,5 +1,6 @@
-import { createElement, RaxNode, useEffect, useState } from 'rax';
+import { createElement, RaxNode, useEffect, useRef } from 'rax';
 import View from 'rax-view';
+import setNativeProps from 'rax-set-native-props';
 
 import styles from './styles';
 import { getViewportHeight } from '../utils';
@@ -11,14 +12,20 @@ export interface PageLayoutProps {
 const PageLayout = (props: PageLayoutProps) => {
   const { children } = props;
 
-  const [viewportHeight, setViewportHeight] = useState<number>(0);
+  const pageLayoutContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    getViewportHeight(setViewportHeight);
+    getViewportHeight((height) => {
+      setNativeProps(pageLayoutContainerRef.current, {
+        style: {
+          height: `${height}rpx`,
+        },
+      });
+    });
   }, []);
 
   return (
-    <View style={Object.assign(styles.container, { height: viewportHeight })}>
+    <View ref={pageLayoutContainerRef} style={styles.container}>
       {children}
     </View>
   );

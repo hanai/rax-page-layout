@@ -6,6 +6,7 @@ import {
   useEffect,
   UIEventHandler,
   TouchEventHandler,
+  CSSProperties,
 } from 'rax';
 import View from 'rax-view';
 import findDOMNode from 'rax-find-dom-node';
@@ -30,6 +31,9 @@ export interface PageMainProps {
     props: PullToRefreshIndicatorProps
   ) => RaxNode;
   pullToRefreshIndicatorHeight?: number;
+
+  containerStyle?: CSSProperties;
+  contentStyle?: CSSProperties;
 
   onPullToRefresh?: () => any;
   onScroll?: UIEventHandler<HTMLDivElement>;
@@ -232,19 +236,23 @@ const PageMain = (props: PageMainProps) => {
       ? {
           overscrollBehavior: 'none', // to disable chrome browser default behavior
         }
-      : null
+      : null,
+    props.containerStyle
   );
 
   const transformViewStyle = Object.assign(styles.transformView, {
     transform: `translate3d(0, ${transformY}rpx, 0)`,
   });
 
-  const pageMainContentStyle =
+  const contentStyle = Object.assign(
+    {},
     transformY > 0
       ? {
           transform: 'translate3d(0, 0, 0)',
         }
-      : null;
+      : null,
+    props.contentStyle
+  );
 
   return (
     <View
@@ -265,7 +273,7 @@ const PageMain = (props: PageMainProps) => {
               style: { position: 'absolute', transform: 'translateY(-100%)' },
             })
           : null}
-        <View style={pageMainContentStyle}>{children}</View>
+        <View style={contentStyle}>{children}</View>
       </View>
     </View>
   );
