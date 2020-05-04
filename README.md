@@ -2,8 +2,9 @@
 
 Classic page layout for rax application.
 
-[preview](https://blog.ihanai.com/rax-page-layout/build/web/index.html)
-![preview](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png)
+| ![preview_qr_code](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png) |
+| --- |
+| [preview](https://blog.ihanai.com/rax-page-layout/build/web/index.html) |
 
 ## Install
 
