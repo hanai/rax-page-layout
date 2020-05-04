@@ -6,5 +6,6 @@
         "targets": ["web", "weex"]
       }
     ]
-  ]
+  ],
+  "publicPath": "/rax-page-layout/build/"
 }
