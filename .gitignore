@@ -8,7 +8,6 @@
 .idea/
 .temp/
 
-build/
 dist/
 lib/
 coverage/
