@@ -1,7 +1,7 @@
 {
   "name": "rax-page-layout",
   "author": "Hanai",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Classic page layout for rax application.",
   "main": "lib/index.js",
   "module": "src/index.js",

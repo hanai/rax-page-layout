@@ -1,3 +1,7 @@
+## 0.0.6 (May 4, 2020)
+
+* Code optimize
+
 ## 0.0.5 (May 2, 2020)
 
 * Optimize Pull to Refresh in web
