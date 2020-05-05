@@ -27,10 +27,12 @@ export interface PageMainProps {
   children: RaxNode;
   isRefreshing?: boolean;
   hasPullToRefresh?: boolean;
+
   renderPullToRefreshIndicator?: (
     props: PullToRefreshIndicatorProps
   ) => RaxNode;
   pullToRefreshIndicatorHeight?: number;
+  pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
 
   containerStyle?: CSSProperties;
   contentStyle?: CSSProperties;
@@ -105,14 +107,14 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleScroll = (e) => {
-    // requestAnimationFrame(() => {
-    const scrollTop = getScrollTop();
-    scrollTopRef.current = scrollTop;
+    requestAnimationFrame(() => {
+      const scrollTop = getScrollTop();
+      scrollTopRef.current = scrollTop;
 
-    if (hasPullToRefresh) {
-      scrollTop <= 0 ? enablePTR() : disablePTR();
-    }
-    // });
+      if (hasPullToRefresh) {
+        scrollTop <= 0 ? enablePTR() : disablePTR();
+      }
+    });
 
     props.onScroll && props.onScroll(e);
   };
@@ -218,15 +220,15 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handlePullToRefresh = () => {
-    if (props.onPullToRefresh) {
-      const ret = props.onPullToRefresh();
-      if (ret && ret.finally) {
-        ret.finally(afterPtr);
-      } else {
-        afterPtr();
+    if (!props.isRefreshing) {
+      if (props.onPullToRefresh) {
+        const ret = props.onPullToRefresh();
+        if (ret && ret.finally) {
+          ret.finally(afterPtr);
+        } else {
+          afterPtr();
+        }
       }
-    } else {
-      afterPtr();
     }
   };
 
@@ -254,6 +256,21 @@ const PageMain = (props: PageMainProps) => {
     props.contentStyle
   );
 
+  const pullToRefreshIndicatorProps = hasPullToRefresh
+    ? Object.assign(
+        {
+          state: ptrState,
+          hasIcon: true,
+          hasText: true,
+          style: {
+            position: 'absolute',
+            transform: 'translateY(-100%)',
+          },
+        },
+        props.pullToRefreshIndicatorProps
+      )
+    : null;
+
   return (
     <View
       style={containerStyle}
@@ -266,12 +283,7 @@ const PageMain = (props: PageMainProps) => {
     >
       <View ref={transformViewRef} style={transformViewStyle}>
         {hasPullToRefresh
-          ? props.renderPullToRefreshIndicator({
-              state: ptrState,
-              hasIcon: true,
-              hasText: true,
-              style: { position: 'absolute', transform: 'translateY(-100%)' },
-            })
+          ? props.renderPullToRefreshIndicator(pullToRefreshIndicatorProps)
           : null}
         <View style={contentStyle}>{children}</View>
       </View>

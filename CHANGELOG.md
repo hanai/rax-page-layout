@@ -1,3 +1,8 @@
+## 0.0.7 (May 4, 2020)
+
+* Bug fix
+* Update readme
+
 ## 0.0.6 (May 4, 2020)
 
 * Code optimize

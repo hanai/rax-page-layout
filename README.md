@@ -36,10 +36,12 @@ Main content container for a page.
 
 #### Props
 
-|name|type|default|describe|
+| name | type | default | describe |
 |:---------------|:--------|:----|:----------|
 | children | RaxNode | - | - |
 | hasPullToRefresh | boolean | false | - |
+| isRefreshing | boolean | false | refresh state |
+
 
 ### PageHeader/PageFooter
 

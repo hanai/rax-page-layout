@@ -15,6 +15,8 @@ const App = () => {
       .map((_, i) => i)
   );
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const refresh = () => {
     setList((list) =>
       list.map(
@@ -24,9 +26,11 @@ const App = () => {
   };
 
   const refreshAsync = () => {
+    setIsRefreshing(true);
     return new Promise((resolve) => {
       setTimeout(() => {
         refresh();
+        setIsRefreshing(false);
         resolve();
       }, 5000);
     });
@@ -39,7 +43,11 @@ const App = () => {
           <Text>Header</Text>
         </View>
       </PageHeader>
-      <PageMain hasPullToRefresh={true} onPullToRefresh={refreshAsync}>
+      <PageMain
+        isRefreshing={isRefreshing}
+        hasPullToRefresh={true}
+        onPullToRefresh={refreshAsync}
+      >
         <View style={styles.listContainer}>
           {list.map((val, i) => (
             <View key={i} style={styles.rowItem}>
