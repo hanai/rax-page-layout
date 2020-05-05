@@ -13,7 +13,7 @@
     "rax-document": "^0.1.0",
     "rax-image": "^2.0.0",
     "rax-link": "^1.0.1",
-    "rax-page-layout": "^0.0.5",
+    "rax-page-layout": "^0.0.7",
     "rax-text": "^1.0.0",
     "rax-view": "^1.0.0"
   },

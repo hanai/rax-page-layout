@@ -8557,16 +8557,17 @@ rax-multi-pages-settings@^0.1.0:
     loader-utils "^1.1.0"
     rax-compile-config "^0.2.0"
 
-rax-page-layout@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/rax-page-layout/-/rax-page-layout-0.0.5.tgz#ee1bae9b1d596f292c9a01c09533eab586a7723d"
-  integrity sha512-2A6oYI3Cz+y9DRdecWYHYYCtXE1Oe0rHrGgxf0Rr8dn0VgjMXsT3mSIBhUhs7ks4yVo0JoOLgDqh5UtVrI4WlQ==
+rax-page-layout@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/rax-page-layout/-/rax-page-layout-0.0.7.tgz#38999fb44119ad92c017315165917e7a85c3b6de"
+  integrity sha512-wzetXeaxgXv0SaEV+THIcMbcC2PNSJ86Euek31Wji3/KnF/17Xf/AJKZZj/xZ/YoO+qoENuWFjqSlB1JX5vsLg==
   dependencies:
     rax "^1.1.1"
     rax-find-dom-node "^1.0.1"
     rax-image "^2.2.0"
     rax-pull-to-refresh-indicator "^0.0.1"
     rax-scrollview "^3.2.0"
+    rax-set-native-props "^1.0.3"
     rax-text "^1.0.0"
     rax-view "^1.0.0"
     universal-animation "^1.1.0"
@@ -8635,6 +8636,14 @@ rax-server-renderer@^1.0.0, rax-server-renderer@^1.0.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/rax-server-renderer/-/rax-server-renderer-1.1.7.tgz#13342f2ca80a3a7e4636fd561feaac61230089d2"
   integrity sha512-cdPwAESXGsXRFNeMsJev2grZEhzWPDt90sJLGYqq+p9lCp1VavxRon1wysGTolq8rqN90c6jFJ/cftFs+STy3A==
+
+rax-set-native-props@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/rax-set-native-props/-/rax-set-native-props-1.0.3.tgz#ae9d5a3a8525a376d31adc0ba3f52e81340de41e"
+  integrity sha512-bD9h7y/hMUQYe7PMH3fTbMT4Hh8e8Whd4P0qB5hucFVkbUDjokRYvG60Ddk+Rixrj7kjrvfHNNJqP4kanRvO+Q==
+  dependencies:
+    style-unit "^2.0.0"
+    universal-env "^3.0.0"
 
 rax-text@^1.0.0, rax-text@^1.0.1, rax-text@^1.0.2:
   version "1.3.1"
