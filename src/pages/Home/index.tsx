@@ -16,6 +16,8 @@ export default function Home() {
       .map((_, i) => i)
   );
 
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const refresh = () => {
     setList((list) =>
       list.map(
@@ -25,9 +27,12 @@ export default function Home() {
   };
 
   const refreshAsync = () => {
+    setIsRefreshing(true);
+
     return new Promise((resolve) => {
       setTimeout(() => {
         refresh();
+        setIsRefreshing(false);
         resolve();
       }, 5000);
     });
@@ -38,7 +43,11 @@ export default function Home() {
       <PageHeader>
         <Header />
       </PageHeader>
-      <PageMain hasPullToRefresh={true} onPullToRefresh={refreshAsync}>
+      <PageMain
+        isRefreshing={isRefreshing}
+        hasPullToRefresh={true}
+        onPullToRefresh={refreshAsync}
+      >
         <View style={styles.list}>
           {list.map((e, i) => (
             <Row key={i} text={e} />
