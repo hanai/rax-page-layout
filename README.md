@@ -8,7 +8,7 @@ Classic page layout for rax application.
 
 ## Install
 
-```
+``` bash
 $ npm install rax-page-layout --save
 ```
 
@@ -26,9 +26,9 @@ Layout view for a page.
 
 #### Props
 
-|name|type|default|describe|
-|:---------------|:--------|:----|:----------|
-| children | RaxNode | - | PageMain \| PageHeader \| PageFooter |
+| **name** | **type** | **default** | **required** | **describe** | **support** |
+|:---|:---|:---|:---|:---|:---|
+| children | RaxNode | - | false |PageMain \| PageHeader \| PageFooter | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
 
 ### PageMain
 
@@ -36,11 +36,11 @@ Main content container for a page.
 
 #### Props
 
-| name | type | default | describe |
-|:---------------|:--------|:----|:----------|
-| children | RaxNode | - | - |
-| hasPullToRefresh | boolean | false | - |
-| isRefreshing | boolean | false | refresh state |
+| **name** | **type** | **default** | **required** | **describe** | **support** |
+|:---|:---|:---|:---|:---|:---|
+| children | RaxNode | - | false | children element | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
+| hasPullToRefresh | boolean | false | false | if has pull to refresh | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
+| isRefreshing | boolean | false | false | refresh state | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
 
 
 ### PageHeader/PageFooter
