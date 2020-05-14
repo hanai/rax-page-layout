@@ -8667,17 +8667,17 @@ rax-is-valid-element@^1.0.0:
   resolved "https://registry.yarnpkg.com/rax-is-valid-element/-/rax-is-valid-element-1.0.0.tgz#c8583a0ae69b7a6b59b0638d3f997c06e500175e"
   integrity sha512-MM3IUAQRKn3EJ0D2vjxgobOJLplLAw3YxE7/IRM6ytDYzlPq5iIZ8wsXoPAp/qW3Y+n23HLQUIljmLKywcCEIA==
 
-rax-pull-to-refresh-indicator@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-0.0.2.tgz#b6c43e7a4da4507d6da6adca98e0e0b837b4ecbc"
-  integrity sha512-ysIHYMU5/NvmMSiwS581dvNBXUFBrxCgFWaq8AuwLomr+GRj/wxM93ugIDWBVr4vFhxcMgqx7A/0cqDkh2fbnA==
+rax-pull-to-refresh-indicator@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-0.0.3.tgz#b45cc8303d2b87e9b0ac8b74c5d4dc8654702b78"
+  integrity sha512-7QqRE0/pAqfqi1bbU6AwXIXbIWBncJNWILs+T26HpVn/IQQ5onBoZXfsmLDwboj5H6twGA32DL3ImCpcuIQBBA==
   dependencies:
     prettier "^2.0.5"
     rax "^1.1.2"
     rax-find-dom-node "^1.0.1"
     rax-icon "^1.3.1"
     rax-text "^1.0.0"
-    rax-view "^1.0.2"
+    rax-view "^1.1.2"
     universal-animation "^1.1.0"
 
 rax-refreshcontrol@^1.0.0:
@@ -8719,14 +8719,6 @@ rax-text@^1.0.0, rax-text@^1.0.1:
   dependencies:
     universal-env "^3.0.0"
 
-rax-view@^1.0.2, rax-view@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/rax-view/-/rax-view-1.1.2.tgz#3fb43a007ab1a0fbc14c633a2aaf46f16adede5a"
-  integrity sha512-HYUDcOMcJ1uVfa5ITXDlJNyjT7ivQkJstlrUXC9agmFPh8HFk6ZRLtJilgMPFO4FXK7vmcA83UKTfmfCcFIUQw==
-  dependencies:
-    classnames "^2.2.6"
-    universal-env "^3.0.0"
-
 rax-view@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/rax-view/-/rax-view-1.1.0.tgz#4ff95bcadb6c5355d342753b7f4e364e219c3411"
@@ -8734,6 +8726,14 @@ rax-view@^1.1.0:
   dependencies:
     classnames "^2.2.6"
     universal-env "^1.0.0"
+
+rax-view@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/rax-view/-/rax-view-1.1.2.tgz#3fb43a007ab1a0fbc14c633a2aaf46f16adede5a"
+  integrity sha512-HYUDcOMcJ1uVfa5ITXDlJNyjT7ivQkJstlrUXC9agmFPh8HFk6ZRLtJilgMPFO4FXK7vmcA83UKTfmfCcFIUQw==
+  dependencies:
+    classnames "^2.2.6"
+    universal-env "^3.0.0"
 
 rax@^1.0.0:
   version "1.1.1"
