@@ -28,26 +28,26 @@
     "prettier": "prettier --single-quote --write package.json \"{src,demo}/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
-    "rax": "^1.1.1",
+    "rax": "^1.1.2",
     "rax-find-dom-node": "^1.0.1",
     "rax-image": "^2.2.0",
-    "rax-pull-to-refresh-indicator": "^0.0.1",
+    "rax-pull-to-refresh-indicator": "^0.0.2",
     "rax-refreshcontrol": "^1.0.0",
     "rax-scrollview": "^3.2.0",
     "rax-set-native-props": "^1.0.3",
     "rax-text": "^1.0.0",
-    "rax-view": "^1.0.0",
+    "rax-view": "^1.1.2",
     "universal-animation": "^1.1.0",
     "universal-env": "^3.2.0"
   },
   "devDependencies": {
-    "@alib/build-scripts": "^0.1.0",
+    "@alib/build-scripts": "^0.1.22",
     "@rax-types/rax": "^1.0.6",
     "build-plugin-rax-component": "^0.2.0",
     "driver-universal": "^3.1.0",
     "prettier": "^2.0.5",
     "rax-test-renderer": "^1.0.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.9.2"
   },
   "license": "MIT",
   "directories": {

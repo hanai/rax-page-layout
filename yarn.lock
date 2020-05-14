@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@alib/build-scripts@^0.1.0":
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/@alib/build-scripts/-/build-scripts-0.1.20.tgz#9043fbd3b36f53363e29edbd9a7ba951a2f47ffd"
-  integrity sha512-PvACFV8he8/bL6Pn8T5G641ZSET+D+v+b2/Ug+xe/k6mx1XIMQ9ch8ao09Tvc6sGSYAsWhVElXbS1qWhuhuBNQ==
+"@alib/build-scripts@^0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@alib/build-scripts/-/build-scripts-0.1.22.tgz#570a6dbb5c46bff72976149ac9a090ae2fefc1cb"
+  integrity sha512-vjdNpZ6vNN27MoikpmO1Ykv1LPJwF5yO8N2MCy9bxaS30pf5h7T3POHmWphC7iHy5wnGURTsFTTf4HcAxZJMYQ==
   dependencies:
     address "^1.1.0"
     camelcase "^5.3.1"
@@ -8639,10 +8639,10 @@ rax-get-element-by-id@^1.0.0:
     rax "^1.0.0"
     universal-env "^1.0.0"
 
-rax-icon@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/rax-icon/-/rax-icon-1.3.0.tgz#ffcf4cf199b7c3194b31e85fa94746c400a9dbb6"
-  integrity sha512-sMK/vHE3KNsqcLklP+5uRxFEf+FaGscI/s+qS1eq0a3L8fXnR+vLWNPRZRzKRKe87mf5HtOdm8de023/PuYrBw==
+rax-icon@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/rax-icon/-/rax-icon-1.3.1.tgz#1a7925da5e391eaceba8612e76331d58f9754a3c"
+  integrity sha512-kXOcD9czUdelPUTzUwy0p4BtEoK42tuDbhv8y9VK4FdF9cSLpvis5y241Wld776gttXbTohj+OI0jy4lYwQfoA==
   dependencies:
     rax-image "^1.0.1"
     rax-text "^1.0.1"
@@ -8667,17 +8667,17 @@ rax-is-valid-element@^1.0.0:
   resolved "https://registry.yarnpkg.com/rax-is-valid-element/-/rax-is-valid-element-1.0.0.tgz#c8583a0ae69b7a6b59b0638d3f997c06e500175e"
   integrity sha512-MM3IUAQRKn3EJ0D2vjxgobOJLplLAw3YxE7/IRM6ytDYzlPq5iIZ8wsXoPAp/qW3Y+n23HLQUIljmLKywcCEIA==
 
-rax-pull-to-refresh-indicator@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-0.0.1.tgz#4c926ad486625452ea652738a38e0231a8449c0e"
-  integrity sha512-ezGYEGZHRIxGnsQ3glgynJda9EGaWig4DOQidOq4gDFhDdQa5RnBH7AB1HqKIWVfkUjjNH9dXCc1u0XjLlFZFQ==
+rax-pull-to-refresh-indicator@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-0.0.2.tgz#b6c43e7a4da4507d6da6adca98e0e0b837b4ecbc"
+  integrity sha512-ysIHYMU5/NvmMSiwS581dvNBXUFBrxCgFWaq8AuwLomr+GRj/wxM93ugIDWBVr4vFhxcMgqx7A/0cqDkh2fbnA==
   dependencies:
     prettier "^2.0.5"
-    rax "^1.1.1"
+    rax "^1.1.2"
     rax-find-dom-node "^1.0.1"
-    rax-icon "^1.3.0"
+    rax-icon "^1.3.1"
     rax-text "^1.0.0"
-    rax-view "^1.0.0"
+    rax-view "^1.0.2"
     universal-animation "^1.1.0"
 
 rax-refreshcontrol@^1.0.0:
@@ -8719,7 +8719,15 @@ rax-text@^1.0.0, rax-text@^1.0.1:
   dependencies:
     universal-env "^3.0.0"
 
-rax-view@^1.0.0, rax-view@^1.1.0:
+rax-view@^1.0.2, rax-view@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/rax-view/-/rax-view-1.1.2.tgz#3fb43a007ab1a0fbc14c633a2aaf46f16adede5a"
+  integrity sha512-HYUDcOMcJ1uVfa5ITXDlJNyjT7ivQkJstlrUXC9agmFPh8HFk6ZRLtJilgMPFO4FXK7vmcA83UKTfmfCcFIUQw==
+  dependencies:
+    classnames "^2.2.6"
+    universal-env "^3.0.0"
+
+rax-view@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/rax-view/-/rax-view-1.1.0.tgz#4ff95bcadb6c5355d342753b7f4e364e219c3411"
   integrity sha512-AaBkFaks49Igs8tHU3HmYoa+PoXitMbddAQ8BlfJabYTT6/gfcMdj7ejDB/23MGtB/cuJthmuiQMlkr8/JVUuA==
@@ -8727,10 +8735,23 @@ rax-view@^1.0.0, rax-view@^1.1.0:
     classnames "^2.2.6"
     universal-env "^1.0.0"
 
-rax@^1.0.0, rax@^1.1.1:
+rax@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/rax/-/rax-1.1.1.tgz#f8a8b51913bdcbf343d8ad8f50c742d555eb5e45"
   integrity sha512-sk34VJ/D4lMgT6z6PLTF5xK3Nvk2QMkdhvm45a3f4TZq3Uy18dDf5+b7oUqrHBZZNT5E0Se8RHSa/WodhMAV0g==
+  dependencies:
+    "@babel/runtime" "^7.2.0"
+    driver-server "^1.0.0"
+    prop-types "^15.7.2"
+    rax-children "^1.0.0"
+    rax-clone-element "^1.0.0"
+    rax-create-factory "^1.0.0"
+    rax-is-valid-element "^1.0.0"
+
+rax@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/rax/-/rax-1.1.2.tgz#06fb40498cd11153a22e6fdf22d3763e40e01049"
+  integrity sha512-1LPXTj8kM2NQzjJXEFU0A/TLVgVdA6jC5fv0MhjSbi7IcCRCxB1zX8msNDfpFiEWvP4xdHTNTPuD/RX/9k1cUw==
   dependencies:
     "@babel/runtime" "^7.2.0"
     driver-server "^1.0.0"
@@ -10292,10 +10313,15 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.5.3, typescript@^3.7.5:
+typescript@^3.5.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+
+typescript@^3.9.2:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.2.tgz#64e9c8e9be6ea583c54607677dd4680a1cf35db9"
+  integrity sha512-q2ktq4n/uLuNNShyayit+DTobV2ApPEo/6so68JaD5ojvc/6GClBipedB9zNWYxRSAlZXAe405Rlijzl6qDiSw==
 
 uglify-js@3.4.x:
   version "3.4.10"
