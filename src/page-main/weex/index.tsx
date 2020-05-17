@@ -1,8 +1,6 @@
 import { createElement, RaxNode, useRef, useState } from 'rax';
 import View from 'rax-view';
-import Text from 'rax-text';
 import ScrollView, { ScrollViewProps } from 'rax-scrollview';
-import findDOMNode from 'rax-find-dom-node';
 import PullToRefreshIndicator, {
   PullToRefreshState,
 } from 'rax-pull-to-refresh-indicator';
@@ -37,8 +35,8 @@ const PageMain = (props: PageMainProps) => {
     if (!props.isRefreshing && props.onPullToRefresh) {
       setPtrState(PullToRefreshState.REFRESHING);
       const ret = props.onPullToRefresh();
-      if (ret && ret.finally) {
-        ret.finally(afterPtr);
+      if (ret && ret.then) {
+        ret.then(afterPtr).catch(afterPtr);
       } else {
         afterPtr();
       }
