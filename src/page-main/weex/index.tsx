@@ -12,6 +12,7 @@ import styles from './styles';
 import { toUnitValue } from '../../utils/unit';
 
 import RefreshControl from 'rax-refreshcontrol';
+// @ts-ignore
 import { WeexPullingdownEvent } from 'rax-refreshcontrol/lib/types';
 
 export interface PageMainProps extends ScrollViewProps {
@@ -25,10 +26,24 @@ const PageMain = (props: PageMainProps) => {
   const { children, hasPullToRefresh, isRefreshing } = props;
 
   const [ptrState, setPtrState] = useState<PullToRefreshState>(
-    PullToRefreshState.STATIC
+    PullToRefreshState.PULLING
   );
 
-  const onRefreshControlRefresh = () => {};
+  const afterPtr = () => {
+    setPtrState(PullToRefreshState.PULLING);
+  };
+
+  const onRefreshControlRefresh = () => {
+    if (!props.isRefreshing && props.onPullToRefresh) {
+      setPtrState(PullToRefreshState.REFRESHING);
+      const ret = props.onPullToRefresh();
+      if (ret && ret.finally) {
+        ret.finally(afterPtr);
+      } else {
+        afterPtr();
+      }
+    }
+  };
 
   const onRefreshControlPullingdown = (e: WeexPullingdownEvent) => {
     const { pullingDistance, viewHeight } = e;
@@ -48,8 +63,9 @@ const PageMain = (props: PageMainProps) => {
         {hasPullToRefresh ? (
           <RefreshControl
             onRefresh={onRefreshControlRefresh}
+            // @ts-ignore
             onPullingdown={onRefreshControlPullingdown}
-            refreshing={true}
+            refreshing={isRefreshing}
           >
             <PullToRefreshIndicator state={ptrState} />
           </RefreshControl>

@@ -31,7 +31,7 @@
     "rax": "^1.1.2",
     "rax-find-dom-node": "^1.0.1",
     "rax-image": "^2.2.0",
-    "rax-pull-to-refresh-indicator": "^0.0.3",
+    "rax-pull-to-refresh-indicator": "^1.0.0",
     "rax-refreshcontrol": "^1.0.0",
     "rax-scrollview": "^3.2.0",
     "rax-set-native-props": "^1.0.3",

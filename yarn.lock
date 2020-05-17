@@ -8667,10 +8667,10 @@ rax-is-valid-element@^1.0.0:
   resolved "https://registry.yarnpkg.com/rax-is-valid-element/-/rax-is-valid-element-1.0.0.tgz#c8583a0ae69b7a6b59b0638d3f997c06e500175e"
   integrity sha512-MM3IUAQRKn3EJ0D2vjxgobOJLplLAw3YxE7/IRM6ytDYzlPq5iIZ8wsXoPAp/qW3Y+n23HLQUIljmLKywcCEIA==
 
-rax-pull-to-refresh-indicator@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-0.0.3.tgz#b45cc8303d2b87e9b0ac8b74c5d4dc8654702b78"
-  integrity sha512-7QqRE0/pAqfqi1bbU6AwXIXbIWBncJNWILs+T26HpVn/IQQ5onBoZXfsmLDwboj5H6twGA32DL3ImCpcuIQBBA==
+rax-pull-to-refresh-indicator@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-1.0.0.tgz#7f11796c7dc0e23552d41c897aabdac1a47160a8"
+  integrity sha512-s/9FTcJHc6HnTagTXR8j+KGQdFaHtNFEPObmv/a0F1CbcdSd99Gwcj4qVTKIK1GWiStAUddh8dzrYN6tPNTGQA==
   dependencies:
     prettier "^2.0.5"
     rax "^1.1.2"

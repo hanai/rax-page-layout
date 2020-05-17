@@ -82,7 +82,7 @@ const PageMain = (props: PageMainProps) => {
 
   const [transformY, setTransformY] = useState<number>(0);
   const [ptrState, setPtrState] = useState<PullToRefreshState>(
-    PullToRefreshState.STATIC
+    PullToRefreshState.PULLING
   );
 
   useEffect(() => {
@@ -164,7 +164,6 @@ const PageMain = (props: PageMainProps) => {
   const handlePtrTouchEnd = useEventCallback((e) => {
     if (ptrState === PullToRefreshState.PULLING) {
       transformYView(transformViewRef, transformY, 0, () => {
-        setPtrState(PullToRefreshState.STATIC);
         setTransformY(0);
       });
     } else if (ptrState === PullToRefreshState.READY) {
@@ -212,9 +211,8 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const afterPtr = () => {
-    setPtrState(PullToRefreshState.RETRACTING);
+    setPtrState(PullToRefreshState.PULLING);
     transformYView(transformViewRef, pullToRefreshIndicatorHeight, 0, () => {
-      setPtrState(PullToRefreshState.STATIC);
       setTransformY(0);
     });
   };
