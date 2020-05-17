@@ -1,3 +1,8 @@
+## 0.0.8 (May 17, 2020)
+
+* Bug fix
+* Weex implement
+
 ## 0.0.7 (May 4, 2020)
 
 * Bug fix
