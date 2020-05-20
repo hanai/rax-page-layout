@@ -1,7 +1,7 @@
 {
   "name": "rax-page-layout",
   "author": "Hanai",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Classic page layout for rax application.",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -19,9 +19,6 @@
   "engines": {
     "npm": ">=3.0.0"
   },
-  "peerDependencies": {
-    "rax": "^1.1.2"
-  },
   "scripts": {
     "start": "build-scripts start",
     "build": "build-scripts build",
@@ -33,21 +30,21 @@
     "rax-image": "^2.2.0",
     "rax-pull-to-refresh-indicator": "^1.0.0",
     "rax-refreshcontrol": "^1.0.0",
-    "rax-scrollview": "^3.2.0",
+    "rax-scrollview": "^3.2.1",
     "rax-set-native-props": "^1.0.3",
     "rax-text": "^1.0.0",
     "rax-view": "^1.1.2",
-    "universal-animation": "^1.1.0",
+    "universal-animation": "^1.1.1",
     "universal-env": "^3.2.0"
   },
   "devDependencies": {
     "@alib/build-scripts": "^0.1.22",
     "@rax-types/rax": "^1.0.6",
-    "build-plugin-rax-component": "^0.2.0",
+    "build-plugin-rax-component": "^0.2.6",
     "driver-universal": "^3.1.0",
     "prettier": "^2.0.5",
     "rax-test-renderer": "^1.0.0",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.3"
   },
   "license": "MIT",
   "directories": {

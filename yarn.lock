@@ -2369,10 +2369,10 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-build-plugin-rax-component@^0.2.0:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/build-plugin-rax-component/-/build-plugin-rax-component-0.2.5.tgz#97be1b5fdbb0a8cd56d63ce2b5b860e13df9098a"
-  integrity sha512-xiOFzq40XCQ3kTsh1jCqahr8A83yUbXWzMd6kpt2LCxj4t0gC4lFwxkTsMd/CoXKqph2ICOd7ZNiSrQIg9LLSQ==
+build-plugin-rax-component@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/build-plugin-rax-component/-/build-plugin-rax-component-0.2.6.tgz#26f3e16cc2860223a4b4afb44154f059309fec5c"
+  integrity sha512-oIPSX1zuql4i5c8OIj0YnocpZKYEeclQCGah5jvmmVLTPGSnx07RYNR16WLd1n38PWL75hVd3O/6CwKHEdXX7A==
   dependencies:
     babel-loader "8.0.4"
     case-sensitive-paths-webpack-plugin "^2.1.2"
@@ -8687,10 +8687,10 @@ rax-refreshcontrol@^1.0.0:
   dependencies:
     universal-env "^1.0.0"
 
-rax-scrollview@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/rax-scrollview/-/rax-scrollview-3.2.0.tgz#82d8020057750fe0786dad7fe84a78d476c7aa3e"
-  integrity sha512-DLVEjJz8hQVu27D/Lk94s32/eUVyQdmzPS6tvoKZ4HC3hTyQd2PxEHD6i/lavexqxxeFZDCBLerS2Xmf7UZThw==
+rax-scrollview@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/rax-scrollview/-/rax-scrollview-3.2.1.tgz#62b5e8c17c257b89bca8cb50749a6a988fe6e105"
+  integrity sha512-Ud8xWor2ZtKZMKDeoXmTPIiatY/IsuWJ9LpuG9hLKxZx0tr4Gqnc5DNgHQ465QzGD+CFmsyeKlfRNIYlVml09g==
   dependencies:
     classnames "^2.2.6"
     rax-get-element-by-id "^1.0.0"
@@ -10318,10 +10318,10 @@ typescript@^3.5.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
 
-typescript@^3.9.2:
-  version "3.9.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.2.tgz#64e9c8e9be6ea583c54607677dd4680a1cf35db9"
-  integrity sha512-q2ktq4n/uLuNNShyayit+DTobV2ApPEo/6so68JaD5ojvc/6GClBipedB9zNWYxRSAlZXAe405Rlijzl6qDiSw==
+typescript@^3.9.3:
+  version "3.9.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.3.tgz#d3ac8883a97c26139e42df5e93eeece33d610b8a"
+  integrity sha512-D/wqnB2xzNFIcoBG9FG8cXRDjiqSTbG2wd8DMZeQyJlP1vfTkIxH4GKveWaEBYySKIg+USu+E+EDIR47SqnaMQ==
 
 uglify-js@3.4.x:
   version "3.4.10"
@@ -10477,6 +10477,15 @@ universal-animation@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/universal-animation/-/universal-animation-1.1.0.tgz#3abf8c2582059c54e3b0836b79b75c1e0147a9bb"
   integrity sha512-a2V7JqlTcLeMFlw825dFTKU6oz1z3msVdWmnHU77MkreMeNTom+cN/fXIJKI057etN2NTjQ/0FRDpJEWVKxC9g==
+  dependencies:
+    universal-env "^3.0.0"
+    universal-transition "^1.0.1"
+    weex-bindingx "^0.0.49"
+
+universal-animation@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/universal-animation/-/universal-animation-1.1.1.tgz#c2610f5e5b572e87893480b373ce45c925277f24"
+  integrity sha512-Jq9hEL25L0zkAD7jjZud+APKB8FjBRDy4zfgOGwOgmV2X07CLh3DkYVX2vR8HwNV6tr0q1jfDKOcEqb2CBbXFA==
   dependencies:
     universal-env "^3.0.0"
     universal-transition "^1.0.1"
