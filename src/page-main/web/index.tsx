@@ -15,39 +15,32 @@ import findDOMNode from 'rax-find-dom-node';
 import animate from 'universal-animation';
 
 import styles from './styles';
-import PullToRefreshIndicator, {
+import {
   height as PullToRefreshIndicatorHeight,
   PullToRefreshIndicatorProps,
   PullToRefreshState,
 } from 'rax-pull-to-refresh-indicator';
 
+import {
+  PageMainProps as CommonPageMainProps,
+  defaultProps as commonDefaultProps,
+} from '../common';
+
 import { toUnitValue, useEventCallback } from '../../utils';
 
-export interface PageMainProps {
-  children: RaxNode;
-  isRefreshing?: boolean;
-  hasPullToRefresh?: boolean;
-
-  renderPullToRefreshIndicator?: (
-    props: PullToRefreshIndicatorProps
-  ) => RaxNode;
+export interface PageMainProps extends CommonPageMainProps {
   pullToRefreshIndicatorHeight?: number;
   pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
 
   containerStyle?: CSSProperties;
   contentStyle?: CSSProperties;
 
-  onPullToRefresh?: () => any;
   onScroll?: UIEventHandler<HTMLDivElement>;
   onTouchStart?: TouchEventHandler<HTMLDivElement>;
   onTouchEnd?: TouchEventHandler<HTMLDivElement>;
   onTouchMove?: TouchEventHandler<HTMLDivElement>;
   onTouchCancel?: TouchEventHandler<HTMLDivElement>;
 }
-
-const renderPullToRefreshIndicator = (props: PullToRefreshIndicatorProps) => {
-  return <PullToRefreshIndicator {...props} />;
-};
 
 const transformYView = (ref, start: number, end: number, cb?: () => any) => {
   animate(
@@ -287,11 +280,8 @@ const PageMain = (props: PageMainProps) => {
   );
 };
 
-PageMain.defaultProps = {
-  renderPullToRefreshIndicator,
+PageMain.defaultProps = Object.assign(commonDefaultProps, {
   pullToRefreshIndicatorHeight: PullToRefreshIndicatorHeight,
-  hasPullToRefresh: false,
-  isRefreshing: false,
-};
+});
 
 export default PageMain;

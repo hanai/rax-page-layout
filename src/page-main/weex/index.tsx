@@ -1,24 +1,20 @@
 import { createElement, RaxNode, useRef, useState } from 'rax';
 import View from 'rax-view';
 import ScrollView, { ScrollViewProps } from 'rax-scrollview';
-import PullToRefreshIndicator, {
-  PullToRefreshState,
-} from 'rax-pull-to-refresh-indicator';
+import { PullToRefreshState } from 'rax-pull-to-refresh-indicator';
 
 import styles from './styles';
-
-import { toUnitValue } from '../../utils/unit';
 
 import RefreshControl from 'rax-refreshcontrol';
 // @ts-ignore
 import { WeexPullingdownEvent } from 'rax-refreshcontrol/lib/types';
 
-export interface PageMainProps extends ScrollViewProps {
-  children: RaxNode;
-  isRefreshing?: boolean;
-  hasPullToRefresh?: boolean;
-  onPullToRefresh?: () => any;
-}
+import {
+  PageMainProps as CommonPageMainProps,
+  defaultProps as commonDefaultProps,
+} from '../common';
+
+export interface PageMainProps extends CommonPageMainProps {}
 
 const PageMain = (props: PageMainProps) => {
   const { children, hasPullToRefresh, isRefreshing } = props;
@@ -65,7 +61,7 @@ const PageMain = (props: PageMainProps) => {
             onPullingdown={onRefreshControlPullingdown}
             refreshing={isRefreshing}
           >
-            <PullToRefreshIndicator state={ptrState} />
+            {props.renderPullToRefreshIndicator({ state: ptrState })}
           </RefreshControl>
         ) : null}
         {children}
@@ -74,8 +70,6 @@ const PageMain = (props: PageMainProps) => {
   );
 };
 
-PageMain.defaultProps = {
-  hasPullToRefresh: false,
-};
+PageMain.defaultProps = Object.assign(commonDefaultProps, {});
 
 export default PageMain;
