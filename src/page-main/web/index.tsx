@@ -213,8 +213,8 @@ const PageMain = (props: PageMainProps) => {
   const handlePullToRefresh = () => {
     if (!props.isRefreshing && props.onPullToRefresh) {
       const ret = props.onPullToRefresh();
-      if (ret && ret.then) {
-        ret.then(afterPtr).catch(afterPtr);
+      if (ret && ret.finally) {
+        ret.finally(afterPtr);
       } else {
         afterPtr();
       }

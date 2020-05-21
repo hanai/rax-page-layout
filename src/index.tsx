@@ -8,6 +8,8 @@ import PageMain from './page-main';
 import PageHeader from './page-header';
 import PageFooter from './page-footer';
 
+import './utils/polyfill';
+
 export default {
   PageLayout,
   PageMain,

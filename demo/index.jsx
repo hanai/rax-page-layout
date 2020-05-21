@@ -2,6 +2,7 @@ import { createElement, render, useState } from 'rax';
 import DriverUniversal from 'driver-universal';
 import View from 'rax-view';
 import Text from 'rax-text';
+import TextInput from 'rax-textinput';
 
 import { PageLayout, PageHeader, PageFooter, PageMain } from 'rax-page-layout';
 import styles from './styles';
@@ -57,8 +58,8 @@ const App = () => {
         </View>
       </PageMain>
       <PageFooter>
-        <View style={styles.header}>
-          <Text>Footer</Text>
+        <View style={styles.footer}>
+          <TextInput placeholder="TextInput" style={styles.footerInput} />
         </View>
       </PageFooter>
     </PageLayout>

@@ -2063,7 +2063,7 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
-babel-runtime-jsx-plus@^0.1.3:
+babel-runtime-jsx-plus@^0.1.3, babel-runtime-jsx-plus@^0.1.4:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/babel-runtime-jsx-plus/-/babel-runtime-jsx-plus-0.1.5.tgz#57fc7ed49f09417584b8b61df2c43f463c738f32"
   integrity sha512-5qjZDfUzZGxHgX8o0tkS9o0HbyBvnUuaAtqHC9IN5CgjWFGJBg6a0Xp31wiG7btiHV0dP5t1t8cthlTCYwtnig==
@@ -8699,7 +8699,7 @@ rax-scrollview@^3.2.1:
     rax-view "^1.1.0"
     universal-env "^3.0.0"
 
-rax-set-native-props@^1.0.3:
+rax-set-native-props@^1.0.0, rax-set-native-props@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/rax-set-native-props/-/rax-set-native-props-1.0.3.tgz#ae9d5a3a8525a376d31adc0ba3f52e81340de41e"
   integrity sha512-bD9h7y/hMUQYe7PMH3fTbMT4Hh8e8Whd4P0qB5hucFVkbUDjokRYvG60Ddk+Rixrj7kjrvfHNNJqP4kanRvO+Q==
@@ -8718,6 +8718,16 @@ rax-text@^1.0.0, rax-text@^1.0.1:
   integrity sha512-BQ2ZC6jEa7WnGm+ZsiwGvMFD7yEvpvHq3qljJRqJwtYewJsimZ2KZ+d66EWwvSgfXGGtss1DJmqCUBRFHsFnxw==
   dependencies:
     universal-env "^3.0.0"
+
+rax-textinput@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/rax-textinput/-/rax-textinput-1.3.0.tgz#8a01892e2a228dde8aff5145227e1bdb23aa81c1"
+  integrity sha512-WnysiMpI6sZPAL4bYaC7JN4tcfqKZh8cJi5xqhyInXwWKhjXPjeDQHUvfmY2dTbrOlkRd5Yf9uCYhLif3UNptg==
+  dependencies:
+    babel-runtime-jsx-plus "^0.1.4"
+    classnames "^2.2.6"
+    rax-set-native-props "^1.0.0"
+    universal-env "^3.2.0"
 
 rax-view@^1.1.0:
   version "1.1.0"
