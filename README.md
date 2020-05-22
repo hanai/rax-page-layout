@@ -2,9 +2,9 @@
 
 Classic page layout for rax application.
 
-| ![preview_qr_code](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png) |
+| ![web_qr_code](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png) |
 | --- |
-| [preview](https://blog.ihanai.com/rax-page-layout/build/web/index.html) |
+| [web](https://blog.ihanai.com/rax-page-layout/build/web/index.html) |
 
 ## Install
 
@@ -54,3 +54,9 @@ import { PageLayout, PageHeader, PageFooter, PageMain } from 'rax-page-layout';
 
 render(<PageLayout />, document.body, { driver: DriverUniversal });
 ```
+
+---
+
+## License
+
+MIT

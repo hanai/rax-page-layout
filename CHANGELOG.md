@@ -1,3 +1,8 @@
+## 0.0.9 (May 22, 2020)
+
+* Bug fix
+* Fix weex style
+
 ## 0.0.8 (May 17, 2020)
 
 * Bug fix
