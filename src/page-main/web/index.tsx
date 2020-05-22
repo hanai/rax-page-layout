@@ -7,6 +7,7 @@ import {
   UIEventHandler,
   TouchEventHandler,
   CSSProperties,
+  useCallback,
 } from 'rax';
 import View from 'rax-view';
 import findDOMNode from 'rax-find-dom-node';
@@ -16,7 +17,6 @@ import animate from 'universal-animation';
 
 import styles from './styles';
 import {
-  height as PullToRefreshIndicatorHeight,
   PullToRefreshIndicatorProps,
   PullToRefreshState,
 } from 'rax-pull-to-refresh-indicator';
@@ -29,7 +29,6 @@ import {
 import { toUnitValue, useEventCallback } from '../../utils';
 
 export interface PageMainProps extends CommonPageMainProps {
-  pullToRefreshIndicatorHeight?: number;
   pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
 
   containerStyle?: CSSProperties;
@@ -63,10 +62,11 @@ const transformYView = (ref, start: number, end: number, cb?: () => any) => {
 };
 
 const PageMain = (props: PageMainProps) => {
-  const { children, hasPullToRefresh, pullToRefreshIndicatorHeight } = props;
+  const { children, hasPullToRefresh } = props;
 
   const scrollViewRef = useRef<HTMLDivElement>(null);
   const transformViewRef = useRef<HTMLDivElement>(null); // transformView was used for animation or transform
+  const pullToRefreshIndicatorContainerRef = useRef<HTMLDivElement>(null);
 
   const prevIsRefreshing = useRef<boolean>(props.isRefreshing);
   const ptrFlagRef = useRef<boolean>(false);
@@ -77,6 +77,13 @@ const PageMain = (props: PageMainProps) => {
   const [ptrState, setPtrState] = useState<PullToRefreshState>(
     PullToRefreshState.PULLING
   );
+
+  const getPTRIndicatorHeight = useCallback(() => {
+    const height = pullToRefreshIndicatorContainerRef.current
+      ? pullToRefreshIndicatorContainerRef.current.clientHeight
+      : 0;
+    return toUnitValue(height);
+  }, [pullToRefreshIndicatorContainerRef]);
 
   useEffect(() => {
     window.requestAnimationFrame(enablePTRIfNeeded);
@@ -146,7 +153,8 @@ const PageMain = (props: PageMainProps) => {
 
       setTransformY(delta);
 
-      if (delta > pullToRefreshIndicatorHeight) {
+      const ptrIndicatorHeight = getPTRIndicatorHeight();
+      if (delta > ptrIndicatorHeight) {
         setPtrState(PullToRefreshState.READY);
       } else {
         setPtrState(PullToRefreshState.PULLING);
@@ -160,15 +168,11 @@ const PageMain = (props: PageMainProps) => {
         setTransformY(0);
       });
     } else if (ptrState === PullToRefreshState.READY) {
-      transformYView(
-        transformViewRef,
-        transformY,
-        pullToRefreshIndicatorHeight,
-        () => {
-          setPtrState(PullToRefreshState.REFRESHING);
-          setTransformY(pullToRefreshIndicatorHeight);
-        }
-      );
+      const ptrIndicatorHeight = getPTRIndicatorHeight();
+      transformYView(transformViewRef, transformY, ptrIndicatorHeight, () => {
+        setPtrState(PullToRefreshState.REFRESHING);
+        setTransformY(ptrIndicatorHeight);
+      });
 
       disablePTR();
 
@@ -204,8 +208,9 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const afterPtr = () => {
+    const ptrIndicatorHeight = getPTRIndicatorHeight();
     setPtrState(PullToRefreshState.PULLING);
-    transformYView(transformViewRef, pullToRefreshIndicatorHeight, 0, () => {
+    transformYView(transformViewRef, ptrIndicatorHeight, 0, () => {
       setTransformY(0);
     });
   };
@@ -251,14 +256,15 @@ const PageMain = (props: PageMainProps) => {
           state: ptrState,
           hasIcon: true,
           hasText: true,
-          style: {
-            position: 'absolute',
-            transform: 'translateY(-100%)',
-          },
         },
         props.pullToRefreshIndicatorProps
       )
     : null;
+
+  const pullToRefreshIndicatorContainerStyle = {
+    position: 'absolute',
+    transform: 'translateY(-100%)',
+  } as CSSProperties;
 
   return (
     <View
@@ -271,17 +277,20 @@ const PageMain = (props: PageMainProps) => {
       onTouchCancel={handleTouchCancel}
     >
       <View ref={transformViewRef} style={transformViewStyle}>
-        {hasPullToRefresh
-          ? props.renderPullToRefreshIndicator(pullToRefreshIndicatorProps)
-          : null}
+        {hasPullToRefresh ? (
+          <View
+            ref={pullToRefreshIndicatorContainerRef}
+            style={pullToRefreshIndicatorContainerStyle}
+          >
+            {props.renderPullToRefreshIndicator(pullToRefreshIndicatorProps)}
+          </View>
+        ) : null}
         <View style={contentStyle}>{children}</View>
       </View>
     </View>
   );
 };
 
-PageMain.defaultProps = Object.assign(commonDefaultProps, {
-  pullToRefreshIndicatorHeight: PullToRefreshIndicatorHeight,
-});
+PageMain.defaultProps = Object.assign(commonDefaultProps, {});
 
 export default PageMain;

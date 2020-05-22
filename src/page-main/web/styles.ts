@@ -10,6 +10,7 @@ const styles: { [key: string]: CSSProperties } = {
   },
   transformView: {
     overflow: 'visible',
+    flexDirection: 'column',
   },
 };
 
