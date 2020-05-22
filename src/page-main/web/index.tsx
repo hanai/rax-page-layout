@@ -32,7 +32,7 @@ export interface PageMainProps extends CommonPageMainProps {
   pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
 
   containerStyle?: CSSProperties;
-  contentStyle?: CSSProperties;
+  contentContainerStyle?: CSSProperties;
 
   onScroll?: UIEventHandler<HTMLDivElement>;
   onTouchStart?: TouchEventHandler<HTMLDivElement>;
@@ -240,14 +240,14 @@ const PageMain = (props: PageMainProps) => {
     transform: `translate3d(0, ${transformY}rpx, 0)`,
   });
 
-  const contentStyle = Object.assign(
+  const contentContainerStyle = Object.assign(
     {},
     transformY > 0
       ? {
           transform: 'translate3d(0, 0, 0)',
         }
       : null,
-    props.contentStyle
+    props.contentContainerStyle
   );
 
   const pullToRefreshIndicatorProps = hasPullToRefresh
@@ -285,7 +285,7 @@ const PageMain = (props: PageMainProps) => {
             {props.renderPullToRefreshIndicator(pullToRefreshIndicatorProps)}
           </View>
         ) : null}
-        <View style={contentStyle}>{children}</View>
+        <View style={contentContainerStyle}>{children}</View>
       </View>
     </View>
   );
