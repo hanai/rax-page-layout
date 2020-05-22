@@ -1,14 +1,19 @@
 export default {
   container: {
     height: 90,
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopStyle: 'solid',
-    borderTopColor: '#e6e6e6',
-    borderTopWidth: 2,
+    borderWidth: 4,
+    borderStyle: 'dashed',
+    borderColor: '#e6e6e6',
   },
-  text: {
-    fontSize: 32,
-    color: '#333',
+  footerInput: {
+    flex: 1,
+    borderColor: '#ff6000',
+    borderWidth: 2,
+    borderStyle: 'solid',
   },
 };
