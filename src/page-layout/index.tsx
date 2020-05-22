@@ -23,18 +23,12 @@ const PageLayout = (props: PageLayoutProps) => {
         },
       });
     });
-  }, []);
+  }, [pageLayoutContainerRef]);
 
   useEffect(() => {
-    getViewportHeight((height) => {
-      setNativeProps(pageLayoutContainerRef.current, {
-        style: {
-          height: `${height}rpx`,
-        },
-      });
-    });
-
     if (isWeb) {
+      handleRecalcViewportHeight();
+
       window.addEventListener('resize', handleRecalcViewportHeight);
       window.addEventListener('orientationchange', handleRecalcViewportHeight);
     }
