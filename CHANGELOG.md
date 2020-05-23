@@ -1,4 +1,4 @@
-## 0.0.11 (May 23, 2020)
+## 0.0.12 (May 23, 2020)
 
 * Update readme
 * Bug fix
