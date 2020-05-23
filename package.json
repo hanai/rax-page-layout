@@ -1,7 +1,7 @@
 {
   "name": "rax-page-layout",
   "author": "Hanai",
-  "version": "0.0.12",
+  "version": "0.0.12-alpha.1",
   "description": "Classic page layout for rax application.",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -25,6 +25,7 @@
     "prettier": "prettier --single-quote --write package.json \"{src,demo}/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
+    "better-scroll": "^2.0.0-beta.8",
     "rax": "^1.1.2",
     "rax-find-dom-node": "^1.0.1",
     "rax-image": "^2.2.0",
