@@ -12,7 +12,7 @@
     "rax-app": "^2.0.0",
     "rax-document": "^0.1.0",
     "rax-image": "^2.0.0",
-    "rax-page-layout": "^0.0.9",
+    "rax-page-layout": "^0.0.10",
     "rax-text": "^1.0.0",
     "rax-textinput": "^1.3.0",
     "rax-view": "^1.1.2"
