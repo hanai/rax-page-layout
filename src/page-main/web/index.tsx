@@ -27,6 +27,7 @@ import {
 } from '../common';
 
 import { toUnitValue, useEventCallback } from '../../utils';
+import { isIOS } from '../../utils/ua';
 
 export interface PageMainProps extends CommonPageMainProps {
   pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
@@ -97,14 +98,27 @@ const PageMain = (props: PageMainProps) => {
     prevIsRefreshing.current = props.isRefreshing;
   }, [props.isRefreshing]);
 
-  const getScrollTop: () => number = () => {
+  const getScrollTop = useCallback(() => {
     const node = findDOMNode(scrollViewRef.current);
     if (node) {
       return toUnitValue(node.scrollTop);
     } else {
       return 0;
     }
-  };
+  }, [scrollViewRef]);
+
+  const getScrollState = useCallback(() => {
+    const node = findDOMNode(scrollViewRef.current);
+
+    if (!node) return null;
+
+    const scrollTop = node.scrollTop;
+
+    return {
+      top: toUnitValue(node.scrollTop),
+      bottom: toUnitValue(node.scrollHeight - scrollTop - node.clientHeight),
+    };
+  }, [scrollViewRef]);
 
   const handleScroll = (e) => {
     requestAnimationFrame(() => {
@@ -120,6 +134,13 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleTouchStart = (e) => {
+    if (isIOS()) {
+      const scrollState = getScrollState();
+      if (scrollState && scrollState.bottom <= 0) {
+        scrollViewRef.current.scrollTop -= 1;
+      }
+    }
+
     props.onTouchStart && props.onTouchStart(e);
   };
 

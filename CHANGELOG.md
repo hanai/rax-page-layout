@@ -1,3 +1,7 @@
+## 0.0.10 (May 23, 2020)
+
+* Fix iOS scroll
+
 ## 0.0.9 (May 22, 2020)
 
 * Bug fix
