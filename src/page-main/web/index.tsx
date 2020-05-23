@@ -1,6 +1,5 @@
 import {
   createElement,
-  RaxNode,
   useRef,
   useState,
   useEffect,
@@ -27,7 +26,6 @@ import {
 } from '../common';
 
 import { toUnitValue, useEventCallback } from '../../utils';
-import { isIOS } from '../../utils/ua';
 
 export interface PageMainProps extends CommonPageMainProps {
   pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
