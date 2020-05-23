@@ -8611,10 +8611,10 @@ rax-multi-pages-settings@^0.1.0:
     loader-utils "^1.1.0"
     rax-compile-config "^0.2.0"
 
-rax-page-layout@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/rax-page-layout/-/rax-page-layout-0.0.10.tgz#f14da0097452543ecbea46b9bb5cdc0ea52bc01e"
-  integrity sha512-lm6ZAfDN1P+3d0th1u3lCvpxi9fm7ftAt1X8LlGauOKvYpayZ02U5vTlEoOX6rS8t+NUxghWl6GaGuG7gCRV+w==
+rax-page-layout@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/rax-page-layout/-/rax-page-layout-0.0.12.tgz#fb33222b8149dee135bc50644a83ea3ae7f240c1"
+  integrity sha512-0w3HTpV4vPEFeCnRztKI7jkYiF20NmBg5U08rwc7p9dde3KrX+Xe0Qc5Yi29ycwb0C409mCvlwxujWZ6CwMm+A==
   dependencies:
     rax "^1.1.2"
     rax-find-dom-node "^1.0.1"
