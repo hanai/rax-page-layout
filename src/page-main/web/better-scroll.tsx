@@ -9,38 +9,23 @@ import {
 import View from 'rax-view';
 import findDOMNode from 'rax-find-dom-node';
 
-// @ts-ignore
-import animate from 'universal-animation';
+import BScroll from '@better-scroll/core';
+import BSObserveDOM from '@better-scroll/observe-dom';
+import BSPullDown from '@better-scroll/pull-down';
+BScroll.use(BSObserveDOM);
+BScroll.use(BSPullDown);
 
 import { PullToRefreshState } from 'rax-pull-to-refresh-indicator';
 
-import styles from './styles';
+import { betterScrollStyle as styles } from './styles';
 
 import { toUnitValue, useEventCallback } from '../../utils';
 import { PageMainProps } from './index';
 
-const transformYView = (ref, start: number, end: number, cb?: () => any) => {
-  animate(
-    {
-      props: [
-        {
-          element: findDOMNode(ref.current),
-          property: 'transform.translateY',
-          easing: 'easeOutSine',
-          duration: 100,
-          start: start,
-          end: end,
-        },
-      ],
-    },
-    () => {
-      cb && cb();
-    }
-  );
-};
-
 const PageMain = (props: PageMainProps) => {
   const { children, hasPullToRefresh } = props;
+
+  const bsRef = useRef<BScroll>();
 
   const scrollViewRef = useRef<HTMLDivElement>(null);
   const transformViewRef = useRef<HTMLDivElement>(null); // transformView was used for animation or transform
@@ -64,8 +49,19 @@ const PageMain = (props: PageMainProps) => {
   }, [pullToRefreshIndicatorContainerRef]);
 
   useEffect(() => {
-    window.requestAnimationFrame(enablePTRIfNeeded);
-  }, []);
+    if (scrollViewRef.current) {
+      bsRef.current = new BScroll(scrollViewRef.current, {
+        observeDOM: true,
+        scrollY: true,
+        probeType: 3,
+        pullDownRefresh: true,
+      });
+    }
+
+    return () => {
+      bsRef.current && bsRef.current.destroy();
+    };
+  }, [scrollViewRef]);
 
   useEffect(() => {
     if (prevIsRefreshing.current && !props.isRefreshing) {
@@ -143,15 +139,8 @@ const PageMain = (props: PageMainProps) => {
 
   const handlePtrTouchEnd = useEventCallback((e) => {
     if (ptrState === PullToRefreshState.PULLING) {
-      transformYView(transformViewRef, transformY, 0, () => {
-        setTransformY(0);
-      });
     } else if (ptrState === PullToRefreshState.READY) {
       const ptrIndicatorHeight = getPTRIndicatorHeight();
-      transformYView(transformViewRef, transformY, ptrIndicatorHeight, () => {
-        setPtrState(PullToRefreshState.REFRESHING);
-        setTransformY(ptrIndicatorHeight);
-      });
 
       disablePTR();
 
@@ -189,9 +178,6 @@ const PageMain = (props: PageMainProps) => {
   const afterPtr = () => {
     const ptrIndicatorHeight = getPTRIndicatorHeight();
     setPtrState(PullToRefreshState.PULLING);
-    transformYView(transformViewRef, ptrIndicatorHeight, 0, () => {
-      setTransformY(0);
-    });
   };
 
   const handlePullToRefresh = () => {
@@ -205,29 +191,16 @@ const PageMain = (props: PageMainProps) => {
     }
   };
 
-  const containerStyle = Object.assign(
-    styles.container,
-    hasPullToRefresh
-      ? {
-          overscrollBehavior: 'none', // to disable chrome browser default behavior
-        }
-      : null,
-    props.containerStyle
-  );
+  const containerStyle = Object.assign(styles.container, props.containerStyle);
 
-  const transformViewStyle = Object.assign(styles.transformView, {
-    transform: `translate3d(0, ${transformY}rpx, 0)`,
-  });
-
-  const contentContainerStyle = Object.assign(
+  const transformViewStyle = Object.assign(
     {},
-    transformY > 0
-      ? {
-          transform: 'translate3d(0, 0, 0)',
-        }
-      : null,
-    props.contentContainerStyle
+    {
+      transform: `translate3d(0, ${transformY}rpx, 0)`,
+    }
   );
+
+  const contentContainerStyle = Object.assign({}, props.contentContainerStyle);
 
   const pullToRefreshIndicatorProps = hasPullToRefresh
     ? Object.assign(
@@ -249,11 +222,11 @@ const PageMain = (props: PageMainProps) => {
     <View
       style={containerStyle}
       ref={scrollViewRef}
-      onScroll={handleScroll}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      onTouchCancel={handleTouchCancel}
+      // onScroll={handleScroll}
+      // onTouchStart={handleTouchStart}
+      // onTouchMove={handleTouchMove}
+      // onTouchEnd={handleTouchEnd}
+      // onTouchCancel={handleTouchCancel}
     >
       <View ref={transformViewRef} style={transformViewStyle}>
         {hasPullToRefresh ? (

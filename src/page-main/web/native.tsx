@@ -14,7 +14,7 @@ import animate from 'universal-animation';
 
 import { PullToRefreshState } from 'rax-pull-to-refresh-indicator';
 
-import styles from './styles';
+import { nativeStyle as styles } from './styles';
 
 import { toUnitValue, useEventCallback } from '../../utils';
 import { PageMainProps } from './index';

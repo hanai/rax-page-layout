@@ -1,7 +1,7 @@
 import { CSSProperties } from '@rax-types/rax';
 import { isIOS } from '../../utils/ua';
 
-const styles: { [key: string]: CSSProperties } = {
+export const nativeStyle: { [key: string]: CSSProperties } = {
   container: {
     flex: 1,
     overflowY: 'scroll',
@@ -14,4 +14,9 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
-export default styles;
+export const betterScrollStyle: { [key: string]: CSSProperties } = {
+  container: {
+    flex: 1,
+    overflow: 'hidden',
+  },
+};
