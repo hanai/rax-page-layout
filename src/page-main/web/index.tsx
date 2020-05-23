@@ -107,26 +107,14 @@ const PageMain = (props: PageMainProps) => {
     }
   }, [scrollViewRef]);
 
-  const getScrollState = useCallback(() => {
-    const node = findDOMNode(scrollViewRef.current);
-
-    if (!node) return null;
-
-    const scrollTop = node.scrollTop;
-
-    return {
-      top: toUnitValue(node.scrollTop),
-      bottom: toUnitValue(node.scrollHeight - scrollTop - node.clientHeight),
-    };
-  }, [scrollViewRef]);
-
   const handleScroll = (e) => {
     requestAnimationFrame(() => {
-      const scrollTop = getScrollTop();
-      scrollTopRef.current = scrollTop;
+      const top = getScrollTop();
+
+      scrollTopRef.current = top;
 
       if (hasPullToRefresh) {
-        scrollTop <= 0 ? enablePTR() : disablePTR();
+        top <= 0 ? enablePTR() : disablePTR();
       }
     });
 
@@ -134,13 +122,6 @@ const PageMain = (props: PageMainProps) => {
   };
 
   const handleTouchStart = (e) => {
-    if (isIOS()) {
-      const scrollState = getScrollState();
-      if (scrollState && scrollState.bottom <= 0) {
-        scrollViewRef.current.scrollTop -= 1;
-      }
-    }
-
     props.onTouchStart && props.onTouchStart(e);
   };
 
