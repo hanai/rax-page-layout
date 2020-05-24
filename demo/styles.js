@@ -20,6 +20,7 @@ export default {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    transition: 'background-color 800ms'
   },
   footer: {
     height: 90,

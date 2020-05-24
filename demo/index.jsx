@@ -37,6 +37,24 @@ const App = () => {
     });
   };
 
+  const Row = ({ text }) => {
+    const [bgColor, setBgColor] = useState('#fff');
+    const handleClick = () => {
+      setBgColor('#00f');
+      setTimeout(() => {
+        setBgColor('#fff');
+      }, 2000);
+    };
+    return (
+      <View
+        onClick={handleClick}
+        style={{ ...styles.rowItem, backgroundColor: bgColor }}
+      >
+        <Text>{text}</Text>
+      </View>
+    );
+  };
+
   return (
     <PageLayout>
       <PageHeader>
@@ -51,9 +69,7 @@ const App = () => {
       >
         <View style={styles.listContainer}>
           {list.map((val, i) => (
-            <View key={i} style={styles.rowItem}>
-              <Text>{val}</Text>
-            </View>
+            <Row key={i} text={val} />
           ))}
         </View>
       </PageMain>

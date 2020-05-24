@@ -32,7 +32,7 @@ const PageMain = (props: PageMainProps) => {
   const pullToRefreshIndicatorContainerRef = useRef<HTMLDivElement>(null);
 
   const prevIsRefreshing = useRef<boolean>(props.isRefreshing);
-  const ptrFlagRef = useRef<boolean>(false);
+  const pullingDownFlag = useRef<boolean>(false);
   const ptrStartYRef = useRef<number>(0);
   const scrollTopRef = useRef<number>(0); // keep scrollTop for use
 
@@ -41,12 +41,15 @@ const PageMain = (props: PageMainProps) => {
     PullToRefreshState.PULLING
   );
 
-  const getPTRIndicatorHeight = useCallback(() => {
-    const height = pullToRefreshIndicatorContainerRef.current
-      ? pullToRefreshIndicatorContainerRef.current.clientHeight
-      : 0;
-    return toUnitValue(height);
-  }, [pullToRefreshIndicatorContainerRef]);
+  const getPTRIndicatorHeight = useCallback(
+    (isPx = false) => {
+      const height = pullToRefreshIndicatorContainerRef.current
+        ? pullToRefreshIndicatorContainerRef.current.clientHeight
+        : 0;
+      return isPx ? height : toUnitValue(height);
+    },
+    [pullToRefreshIndicatorContainerRef]
+  );
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -54,8 +57,13 @@ const PageMain = (props: PageMainProps) => {
         observeDOM: true,
         scrollY: true,
         probeType: 3,
+        eventPassthrough: 'horizontal',
         pullDownRefresh: true,
       });
+
+      bsRef.current.on('pullingDown', handlePullToRefresh);
+
+      bsRef.current.on('scroll', handleScroll);
     }
 
     return () => {
@@ -64,12 +72,12 @@ const PageMain = (props: PageMainProps) => {
   }, [scrollViewRef]);
 
   useEffect(() => {
-    if (prevIsRefreshing.current && !props.isRefreshing) {
+    if (props.hasPullToRefresh) {
+      enablePTR();
+    } else {
       disablePTR();
-      window.requestAnimationFrame(enablePTRIfNeeded);
     }
-    prevIsRefreshing.current = props.isRefreshing;
-  }, [props.isRefreshing]);
+  }, [props.hasPullToRefresh]);
 
   const getScrollTop = useCallback(() => {
     const node = findDOMNode(scrollViewRef.current);
@@ -81,107 +89,48 @@ const PageMain = (props: PageMainProps) => {
   }, [scrollViewRef]);
 
   const handleScroll = (e) => {
-    requestAnimationFrame(() => {
-      const top = getScrollTop();
+    scrollTopRef.current = e.y * -1;
 
-      scrollTopRef.current = top;
-
-      if (hasPullToRefresh) {
-        top <= 0 ? enablePTR() : disablePTR();
+    if (props.hasPullToRefresh) {
+      const ptrIndicatorHeight = getPTRIndicatorHeight(true);
+      if (!pullingDownFlag.current) {
+        if (e.y > ptrIndicatorHeight) {
+          setPtrState(PullToRefreshState.READY);
+        } else {
+          setPtrState(PullToRefreshState.PULLING);
+        }
       }
-    });
+    }
 
     props.onScroll && props.onScroll(e);
   };
 
-  const handleTouchStart = (e) => {
-    props.onTouchStart && props.onTouchStart(e);
-  };
-
-  const handleTouchMove = (e) => {
-    props.onTouchMove && props.onTouchMove(e);
-  };
-
-  const handleTouchEnd = (e) => {
-    props.onTouchEnd && props.onTouchEnd(e);
-  };
-
-  const handleTouchCancel = (e) => {
-    props.onTouchCancel && props.onTouchCancel(e);
-  };
-
-  const handlePtrTouchStart = useEventCallback((e) => {
-    const y = toUnitValue(e.touches[0].screenY);
-    ptrStartYRef.current = y;
-  }, []);
-
-  const handlePtrTouchMove = useEventCallback((e) => {
-    const y = toUnitValue(e.touches[0].screenY);
-
-    const delta = Math.round(0.4 * (y - ptrStartYRef.current));
-
-    if (delta <= 0 && transformY === 0) {
-    } else {
-      if (delta > 0 && e.cancelable !== false) {
-        e.preventDefault();
-      }
-
-      setTransformY(delta);
-
-      const ptrIndicatorHeight = getPTRIndicatorHeight();
-      if (delta > ptrIndicatorHeight) {
-        setPtrState(PullToRefreshState.READY);
-      } else {
-        setPtrState(PullToRefreshState.PULLING);
-      }
-    }
-  }, []);
-
-  const handlePtrTouchEnd = useEventCallback((e) => {
-    if (ptrState === PullToRefreshState.PULLING) {
-    } else if (ptrState === PullToRefreshState.READY) {
-      const ptrIndicatorHeight = getPTRIndicatorHeight();
-
-      disablePTR();
-
-      handlePullToRefresh();
-    }
-  }, []);
-
-  const enablePTRIfNeeded = () => {
-    if (hasPullToRefresh && getScrollTop() <= 0) {
-      enablePTR();
-    }
-  };
-
   const enablePTR = () => {
-    if (!ptrFlagRef.current) {
-      ptrFlagRef.current = true;
-      const scrollView = scrollViewRef.current;
-
-      scrollView.addEventListener('touchstart', handlePtrTouchStart);
-      scrollView.addEventListener('touchmove', handlePtrTouchMove);
-      scrollView.addEventListener('touchend', handlePtrTouchEnd);
+    if (bsRef.current) {
+      const ptrIndicatorHeight = getPTRIndicatorHeight(true);
+      bsRef.current.openPullDown({
+        threshold: ptrIndicatorHeight,
+        stop: ptrIndicatorHeight,
+      });
     }
   };
 
   const disablePTR = () => {
-    if (ptrFlagRef.current) {
-      ptrFlagRef.current = false;
-      const scrollView = scrollViewRef.current;
-      scrollView.removeEventListener('touchstart', handlePtrTouchStart);
-      scrollView.removeEventListener('touchmove', handlePtrTouchMove);
-      scrollView.removeEventListener('touchend', handlePtrTouchEnd);
+    if (bsRef.current) {
+      bsRef.current.closePullDown();
     }
   };
 
   const afterPtr = () => {
-    const ptrIndicatorHeight = getPTRIndicatorHeight();
     setPtrState(PullToRefreshState.PULLING);
+    pullingDownFlag.current = false;
+    bsRef.current.finishPullDown();
   };
 
   const handlePullToRefresh = () => {
     if (!props.isRefreshing && props.onPullToRefresh) {
+      pullingDownFlag.current = true;
+      setPtrState(PullToRefreshState.REFRESHING);
       const ret = props.onPullToRefresh();
       if (ret && ret.finally) {
         ret.finally(afterPtr);
@@ -222,22 +171,23 @@ const PageMain = (props: PageMainProps) => {
     <View
       style={containerStyle}
       ref={scrollViewRef}
-      // onScroll={handleScroll}
       // onTouchStart={handleTouchStart}
       // onTouchMove={handleTouchMove}
       // onTouchEnd={handleTouchEnd}
       // onTouchCancel={handleTouchCancel}
     >
-      <View ref={transformViewRef} style={transformViewStyle}>
-        {hasPullToRefresh ? (
-          <View
-            ref={pullToRefreshIndicatorContainerRef}
-            style={pullToRefreshIndicatorContainerStyle}
-          >
-            {props.renderPullToRefreshIndicator(pullToRefreshIndicatorProps)}
-          </View>
-        ) : null}
-        <View style={contentContainerStyle}>{children}</View>
+      <View>
+        <View ref={transformViewRef} style={transformViewStyle}>
+          {hasPullToRefresh ? (
+            <View
+              ref={pullToRefreshIndicatorContainerRef}
+              style={pullToRefreshIndicatorContainerStyle}
+            >
+              {props.renderPullToRefreshIndicator(pullToRefreshIndicatorProps)}
+            </View>
+          ) : null}
+          <View style={contentContainerStyle}>{children}</View>
+        </View>
       </View>
     </View>
   );
