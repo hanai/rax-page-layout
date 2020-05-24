@@ -41,7 +41,7 @@ const PageMainWrapper = (props: PageMainProps) => {
 
 PageMainWrapper.defaultProps = Object.assign(
   {
-    betterScroll: true,
+    betterScroll: false,
   },
   commonDefaultProps
 );
