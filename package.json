@@ -1,7 +1,7 @@
 {
   "name": "rax-page-layout",
   "author": "Hanai",
-  "version": "0.0.13-alpha.1",
+  "version": "0.0.13-alpha.2",
   "description": "Classic page layout for rax application.",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -31,7 +31,7 @@
     "rax-image": "^2.2.0",
     "rax-pull-to-refresh-indicator": "^1.0.0",
     "rax-refreshcontrol": "^1.0.0",
-    "rax-scrollview": "^3.2.1",
+    "rax-scrollview": "^3.2.2",
     "rax-set-native-props": "^1.0.3",
     "rax-view": "^1.1.2",
     "universal-animation": "^1.1.1",

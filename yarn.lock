@@ -8770,10 +8770,10 @@ rax-refreshcontrol@^1.0.0:
   dependencies:
     universal-env "^1.0.0"
 
-rax-scrollview@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/rax-scrollview/-/rax-scrollview-3.2.1.tgz#62b5e8c17c257b89bca8cb50749a6a988fe6e105"
-  integrity sha512-Ud8xWor2ZtKZMKDeoXmTPIiatY/IsuWJ9LpuG9hLKxZx0tr4Gqnc5DNgHQ465QzGD+CFmsyeKlfRNIYlVml09g==
+rax-scrollview@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/rax-scrollview/-/rax-scrollview-3.2.2.tgz#958263cab0f8fd054323fad5d3caff63113f402f"
+  integrity sha512-8ni3hj896AigH1ETd5bcRGj18kYM8vhjcbY2hIrZ6AW5CgHWBBo1XuCbL5rGYuVqDJ4b5GyxoT1CgjrRkuTVyw==
   dependencies:
     classnames "^2.2.6"
     rax-get-element-by-id "^1.0.0"
