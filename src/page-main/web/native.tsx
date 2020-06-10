@@ -8,8 +8,6 @@ import {
 } from 'rax';
 import View from 'rax-view';
 import findDOMNode from 'rax-find-dom-node';
-
-// @ts-ignore
 import animate from 'universal-animation';
 
 import { PullToRefreshState } from 'rax-pull-to-refresh-indicator';
