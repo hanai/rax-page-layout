@@ -8722,10 +8722,10 @@ rax-get-element-by-id@^1.0.0:
     rax "^1.0.0"
     universal-env "^1.0.0"
 
-rax-icon@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/rax-icon/-/rax-icon-1.3.1.tgz#1a7925da5e391eaceba8612e76331d58f9754a3c"
-  integrity sha512-kXOcD9czUdelPUTzUwy0p4BtEoK42tuDbhv8y9VK4FdF9cSLpvis5y241Wld776gttXbTohj+OI0jy4lYwQfoA==
+rax-icon@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/rax-icon/-/rax-icon-1.3.4.tgz#ac368004ccba583a843d5354e1f54d4689483485"
+  integrity sha512-rIieu5zOlMFvoZrham+K3k4IjVhd66MGviseJzjWiGHRP4Q/g80vMMzrOy0ddFQFj+ZA+RP+VT3LgalhDz9fuw==
   dependencies:
     rax-image "^1.0.1"
     rax-text "^1.0.1"
@@ -8750,18 +8750,18 @@ rax-is-valid-element@^1.0.0:
   resolved "https://registry.yarnpkg.com/rax-is-valid-element/-/rax-is-valid-element-1.0.0.tgz#c8583a0ae69b7a6b59b0638d3f997c06e500175e"
   integrity sha512-MM3IUAQRKn3EJ0D2vjxgobOJLplLAw3YxE7/IRM6ytDYzlPq5iIZ8wsXoPAp/qW3Y+n23HLQUIljmLKywcCEIA==
 
-rax-pull-to-refresh-indicator@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-1.0.0.tgz#7f11796c7dc0e23552d41c897aabdac1a47160a8"
-  integrity sha512-s/9FTcJHc6HnTagTXR8j+KGQdFaHtNFEPObmv/a0F1CbcdSd99Gwcj4qVTKIK1GWiStAUddh8dzrYN6tPNTGQA==
+rax-pull-to-refresh-indicator@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rax-pull-to-refresh-indicator/-/rax-pull-to-refresh-indicator-1.0.1.tgz#a73aaacfe5e2f6246dd06c2e4f5e8a82d5383236"
+  integrity sha512-9gOgw9uzdS3lWQNso6klafYP8SAGznIFfmvuwELQHjY0wP/BR7eGXCS7HOjf7F6dDNKvMu+kXEUUWNYo0w2/Rw==
   dependencies:
     prettier "^2.0.5"
-    rax "^1.1.2"
+    rax "^1.1.3"
     rax-find-dom-node "^1.0.1"
-    rax-icon "^1.3.1"
+    rax-icon "^1.3.4"
     rax-text "^1.0.0"
     rax-view "^1.1.2"
-    universal-animation "^1.1.0"
+    universal-animation "^1.1.2"
 
 rax-refreshcontrol@^1.0.0:
   version "1.0.0"
@@ -8832,19 +8832,6 @@ rax@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/rax/-/rax-1.1.1.tgz#f8a8b51913bdcbf343d8ad8f50c742d555eb5e45"
   integrity sha512-sk34VJ/D4lMgT6z6PLTF5xK3Nvk2QMkdhvm45a3f4TZq3Uy18dDf5+b7oUqrHBZZNT5E0Se8RHSa/WodhMAV0g==
-  dependencies:
-    "@babel/runtime" "^7.2.0"
-    driver-server "^1.0.0"
-    prop-types "^15.7.2"
-    rax-children "^1.0.0"
-    rax-clone-element "^1.0.0"
-    rax-create-factory "^1.0.0"
-    rax-is-valid-element "^1.0.0"
-
-rax@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/rax/-/rax-1.1.2.tgz#06fb40498cd11153a22e6fdf22d3763e40e01049"
-  integrity sha512-1LPXTj8kM2NQzjJXEFU0A/TLVgVdA6jC5fv0MhjSbi7IcCRCxB1zX8msNDfpFiEWvP4xdHTNTPuD/RX/9k1cUw==
   dependencies:
     "@babel/runtime" "^7.2.0"
     driver-server "^1.0.0"
@@ -10578,15 +10565,6 @@ unist-util-visit@^1.1.0:
   integrity sha512-AvGNk7Bb//EmJZyhtRUnNMEpId/AZ5Ph/KUpTI09WHQuDZHKovQ1oEv3mfmKpWKtoMzyMC4GLBm1Zy5k12fjIw==
   dependencies:
     unist-util-visit-parents "^2.0.0"
-
-universal-animation@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/universal-animation/-/universal-animation-1.1.0.tgz#3abf8c2582059c54e3b0836b79b75c1e0147a9bb"
-  integrity sha512-a2V7JqlTcLeMFlw825dFTKU6oz1z3msVdWmnHU77MkreMeNTom+cN/fXIJKI057etN2NTjQ/0FRDpJEWVKxC9g==
-  dependencies:
-    universal-env "^3.0.0"
-    universal-transition "^1.0.1"
-    weex-bindingx "^0.0.49"
 
 universal-animation@^1.1.2:
   version "1.1.2"
