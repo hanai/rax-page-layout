@@ -1,3 +1,8 @@
+## 0.0.14 (Sept 25, 2020)
+
+* Remove Weex support
+* Update dependencies
+
 ## 0.0.12 (May 23, 2020)
 
 * Update readme
