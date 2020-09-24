@@ -2,9 +2,9 @@
 
 Classic page layout for rax application.
 
-| ![web_qr_code](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png) | ![weex_qr_code](https://user-images.githubusercontent.com/1222115/82687722-3eb9b800-9c8a-11ea-86e1-b76177eabaf9.png) |
-| --- | --- |
-| [web](https://blog.ihanai.com/rax-page-layout/build/web/index.html) | [weex](https://blog.ihanai.com/rax-page-layout/build/weex/index.js?wh_weex=true) |
+| ![web_qr_code](https://user-images.githubusercontent.com/1222115/80943561-0efd5a00-8e1a-11ea-8639-056c630ffb44.png) |
+| --- |
+| [web](https://blog.ihanai.com/rax-page-layout/build/web/index.html) |
 
 ## Install
 
@@ -28,7 +28,7 @@ Layout view for a page.
 
 | **name** | **type** | **default** | **required** | **describe** | **support** |
 |:---|:---|:---|:---|:---|:---|
-| children | RaxNode | - | false |PageMain \| PageHeader \| PageFooter | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
+| children | RaxNode | - | false |PageMain \| PageHeader \| PageFooter | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /> |
 
 ### PageMain
 
@@ -38,9 +38,9 @@ Main content container for a page.
 
 | **name** | **type** | **default** | **required** | **describe** | **support** |
 |:---|:---|:---|:---|:---|:---|
-| children | RaxNode | - | false | children element | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
-| hasPullToRefresh | boolean | false | false | if has pull to refresh | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
-| isRefreshing | boolean | false | false | refresh state | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /><img alt="weex" src="https://gw.alicdn.com/tfs/TB1jM0ebMaH3KVjSZFjXXcFWpXa-200-200.svg" width="25px" height="25px" /> |
+| children | RaxNode | - | false | children element | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /> |
+| hasPullToRefresh | boolean | false | false | if has pull to refresh | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /> |
+| isRefreshing | boolean | false | false | refresh state | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /> |
 | betterScroll | boolean | false | false | if use better-scroll | <img alt="browser" src="https://gw.alicdn.com/tfs/TB1uYFobGSs3KVjSZPiXXcsiVXa-200-200.svg" width="25px" height="25px" /> |
 
 
