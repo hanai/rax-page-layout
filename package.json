@@ -8,7 +8,7 @@
     "prettier": "prettier --single-quote --write package.json \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
-    "rax": "^1.1.2",
+    "rax": "^1.1.4",
     "rax-app": "^2.0.0",
     "rax-document": "^0.1.0",
     "rax-image": "^2.0.0",
@@ -18,7 +18,7 @@
     "rax-view": "^2.0.3"
   },
   "devDependencies": {
-    "@alib/build-scripts": "^0.1.22",
+    "@alib/build-scripts": "^0.1.29",
     "@rax-types/rax": "^1.0.6",
     "babel-eslint": "^10.0.3",
     "build-plugin-rax-app": "^5.2.7",

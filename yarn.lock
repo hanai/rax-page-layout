@@ -9433,20 +9433,7 @@ rax@^1.0.0:
     rax-create-factory "^1.0.0"
     rax-is-valid-element "^1.0.0"
 
-rax@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/rax/-/rax-1.1.2.tgz#06fb40498cd11153a22e6fdf22d3763e40e01049"
-  integrity sha512-1LPXTj8kM2NQzjJXEFU0A/TLVgVdA6jC5fv0MhjSbi7IcCRCxB1zX8msNDfpFiEWvP4xdHTNTPuD/RX/9k1cUw==
-  dependencies:
-    "@babel/runtime" "^7.2.0"
-    driver-server "^1.0.0"
-    prop-types "^15.7.2"
-    rax-children "^1.0.0"
-    rax-clone-element "^1.0.0"
-    rax-create-factory "^1.0.0"
-    rax-is-valid-element "^1.0.0"
-
-rax@^1.1.3:
+rax@^1.1.3, rax@^1.1.4:
   version "1.1.4"
   resolved "https://registry.npm.taobao.org/rax/download/rax-1.1.4.tgz#be71780930b3d1b15850df1c2ddf6437bddb9f05"
   integrity sha1-vnF4CTCz0bFYUN8cLd9kN73bnwU=
