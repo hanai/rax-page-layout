@@ -8,10 +8,11 @@ import { getViewportHeight, useEventCallback } from '../utils';
 
 export interface PageLayoutProps {
   children: RaxNode;
+  bodyOverflow?: CSSStyleDeclaration['overflow'];
 }
 
 const PageLayout = (props: PageLayoutProps) => {
-  const { children } = props;
+  const { children, bodyOverflow } = props;
 
   const pageLayoutContainerRef = useRef<HTMLDivElement>(null);
 
@@ -44,11 +45,19 @@ const PageLayout = (props: PageLayoutProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = bodyOverflow; // fix page over scroll in webview
+  }, [bodyOverflow]);
+
   return (
     <View ref={pageLayoutContainerRef} style={styles.container}>
       {children}
     </View>
   );
+};
+
+PageLayout.defaultProps = {
+  bodyOverflow: 'hidden',
 };
 
 export default PageLayout;

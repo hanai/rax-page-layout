@@ -3,6 +3,8 @@ import PullToRefreshIndicator, {
   PullToRefreshIndicatorProps,
 } from 'rax-pull-to-refresh-indicator';
 
+import BScroll from '@better-scroll/core';
+
 export interface PageMainProps {
   children: any;
   isRefreshing?: boolean;
@@ -11,6 +13,10 @@ export interface PageMainProps {
   onEndReachedThreshold?: number;
   onEndReached?: () => any;
   renderPullToRefreshIndicator?: (props: PullToRefreshIndicatorProps) => any;
+  scrollerRef?: Rax.MutableRefObject<{
+    bsRef?: Rax.MutableRefObject<BScroll>;
+    scrollToElement: (el: HTMLElement, time: number) => void;
+  }>;
 }
 
 export const defaultProps = {

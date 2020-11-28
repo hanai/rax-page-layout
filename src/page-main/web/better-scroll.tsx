@@ -5,41 +5,54 @@ import {
   useEffect,
   CSSProperties,
   useCallback,
+  useImperativeHandle,
 } from 'rax';
 import View from 'rax-view';
 import findDOMNode from 'rax-find-dom-node';
-
+import uniqBy from 'lodash/uniqBy';
 import BScroll from '@better-scroll/core';
 import BSObserveDOM from '@better-scroll/observe-dom';
 import BSPullDown from '@better-scroll/pull-down';
-BScroll.use(BSObserveDOM);
-BScroll.use(BSPullDown);
 
 import { PullToRefreshState } from 'rax-pull-to-refresh-indicator';
 
 import { betterScrollStyle as styles } from './styles';
 
-import { toUnitValue, useEventCallback } from '../../utils';
+import { toUnitValue, usePrevious } from '../../utils';
 import { PageMainProps } from './index';
 
 const PageMain = (props: PageMainProps) => {
-  const { children, hasPullToRefresh } = props;
+  const { children, hasPullToRefresh, bsProps } = props;
 
   const bsRef = useRef<BScroll>();
 
-  const scrollViewRef = useRef<HTMLDivElement>(null);
   const transformViewRef = useRef<HTMLDivElement>(null); // transformView was used for animation or transform
   const pullToRefreshIndicatorContainerRef = useRef<HTMLDivElement>(null);
 
-  const prevIsRefreshing = useRef<boolean>(props.isRefreshing);
   const pullingDownFlag = useRef<boolean>(false);
-  const ptrStartYRef = useRef<number>(0);
   const scrollTopRef = useRef<number>(0); // keep scrollTop for use
 
-  const [transformY, setTransformY] = useState<number>(0);
   const [ptrState, setPtrState] = useState<PullToRefreshState>(
     PullToRefreshState.PULLING
   );
+
+  const prevIsRefreshing = usePrevious(props.isRefreshing);
+
+  useImperativeHandle(props.scrollerRef, () => {
+    return {
+      bsRef: bsRef,
+      scrollToElement(el, time) {
+        if (bsRef.current) {
+          return bsRef.current.scrollToElement(el, time, true, true);
+        }
+      },
+      refresh() {
+        if (bsRef.current) {
+          return bsRef.current.refresh();
+        }
+      },
+    };
+  });
 
   const getPTRIndicatorHeight = useCallback(
     (isPx = false) => {
@@ -51,25 +64,73 @@ const PageMain = (props: PageMainProps) => {
     [pullToRefreshIndicatorContainerRef]
   );
 
-  useEffect(() => {
-    if (scrollViewRef.current) {
-      bsRef.current = new BScroll(scrollViewRef.current, {
-        observeDOM: true,
+  const scrollViewRefCB = useCallback((node?: HTMLDivElement) => {
+    if (node != null) {
+      const internalBsPlugins = [BSObserveDOM, BSPullDown];
+      const plugins = uniqBy(
+        [...props.bsPlugins, ...internalBsPlugins],
+        'pluginName'
+      );
+
+      plugins.forEach(BScroll.use);
+
+      bsRef.current = new BScroll(node, {
+        bserveDOM: true,
         scrollY: true,
         probeType: 3,
+        click: true,
         eventPassthrough: 'horizontal',
         pullDownRefresh: true,
+        ...bsProps,
       });
 
-      bsRef.current.on('pullingDown', handlePullToRefresh);
+      if (props.scrollerRef?.current?.bsRef != null) {
+        props.scrollerRef.current.bsRef.current = bsRef.current;
+      }
 
-      bsRef.current.on('scroll', handleScroll);
+      setTimeout(() => {
+        bsRef.current.refresh();
+      }, 200);
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (bsRef.current) {
+        bsRef.current.destroy();
+        bsRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const needRefresh = prevIsRefreshing && !props.isRefreshing;
+
+    if (needRefresh) {
+      bsRef.current.refresh();
+    }
+  }, [prevIsRefreshing, props.isRefreshing]);
+
+  useEffect(() => {
+    if (bsRef.current) {
+      bsRef.current.on('pullingDown', handlePullToRefresh);
     }
 
     return () => {
-      bsRef.current && bsRef.current.destroy();
+      bsRef.current.off('pullingDown', handlePullToRefresh);
     };
-  }, [scrollViewRef]);
+  }, [props.onPullToRefresh]);
+
+  useEffect(() => {
+    if (bsRef.current) {
+      bsRef.current.on('scroll', handleScroll);
+    }
+    return () => {
+      if (bsRef.current) {
+        bsRef.current.off('scroll', handleScroll);
+      }
+    };
+  }, [props.onScroll]);
 
   useEffect(() => {
     if (props.hasPullToRefresh) {
@@ -78,15 +139,6 @@ const PageMain = (props: PageMainProps) => {
       disablePTR();
     }
   }, [props.hasPullToRefresh]);
-
-  const getScrollTop = useCallback(() => {
-    const node = findDOMNode(scrollViewRef.current);
-    if (node) {
-      return toUnitValue(node.scrollTop);
-    } else {
-      return 0;
-    }
-  }, [scrollViewRef]);
 
   const handleScroll = (e) => {
     scrollTopRef.current = e.y * -1;
@@ -145,7 +197,7 @@ const PageMain = (props: PageMainProps) => {
   const transformViewStyle = Object.assign(
     {},
     {
-      transform: `translate3d(0, ${transformY}rpx, 0)`,
+      transform: `translate3d(0, 0, 0)`,
     }
   );
 
@@ -170,7 +222,7 @@ const PageMain = (props: PageMainProps) => {
   return (
     <View
       style={containerStyle}
-      ref={scrollViewRef}
+      ref={scrollViewRefCB}
       // onTouchStart={handleTouchStart}
       // onTouchMove={handleTouchMove}
       // onTouchEnd={handleTouchEnd}

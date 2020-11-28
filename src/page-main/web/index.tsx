@@ -4,6 +4,7 @@ import {
   CSSProperties,
   TouchEventHandler,
 } from 'rax';
+import { Options as BScrollOptions } from '@better-scroll/core';
 
 import { PullToRefreshIndicatorProps } from 'rax-pull-to-refresh-indicator';
 
@@ -19,6 +20,9 @@ export interface PageMainProps extends CommonPageMainProps {
   betterScroll?: boolean;
   pullToRefreshIndicatorProps?: Partial<PullToRefreshIndicatorProps>;
 
+  bsProps?: BScrollOptions;
+  bsPlugins?: any[];
+
   containerStyle?: CSSProperties;
   contentContainerStyle?: CSSProperties;
 
@@ -30,10 +34,16 @@ export interface PageMainProps extends CommonPageMainProps {
 }
 
 const PageMainWrapper = (props: PageMainProps) => {
-  const { betterScroll, ...otherProps } = props;
+  const { betterScroll, bsPlugins, bsProps, ...otherProps } = props;
 
   if (betterScroll) {
-    return <PageMainBetterScroll {...otherProps} />;
+    return (
+      <PageMainBetterScroll
+        bsPlugins={bsPlugins}
+        bsProps={bsProps}
+        {...otherProps}
+      />
+    );
   } else {
     return <PageMainNative {...otherProps} />;
   }
@@ -42,6 +52,8 @@ const PageMainWrapper = (props: PageMainProps) => {
 PageMainWrapper.defaultProps = Object.assign(
   {
     betterScroll: false,
+    bsProps: {},
+    bsPlugins: [],
   },
   commonDefaultProps
 );

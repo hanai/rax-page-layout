@@ -5,6 +5,7 @@ import {
   useEffect,
   CSSProperties,
   useCallback,
+  useImperativeHandle,
 } from 'rax';
 import View from 'rax-view';
 import findDOMNode from 'rax-find-dom-node';
@@ -53,6 +54,16 @@ const PageMain = (props: PageMainProps) => {
   const [ptrState, setPtrState] = useState<PullToRefreshState>(
     PullToRefreshState.PULLING
   );
+
+  useImperativeHandle(props.scrollerRef, () => {
+    return {
+      scrollToElement(el: HTMLElement) {
+        if (el != null) {
+          el.scrollIntoView();
+        }
+      },
+    };
+  });
 
   const getPTRIndicatorHeight = useCallback(() => {
     const height = pullToRefreshIndicatorContainerRef.current
