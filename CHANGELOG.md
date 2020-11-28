@@ -1,3 +1,8 @@
+## 0.0.15 (Nov 28, 2020)
+
+* Add scrollerRef
+* Code optimization
+
 ## 0.0.14 (Sept 25, 2020)
 
 * Remove Weex support
