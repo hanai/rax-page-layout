@@ -1,3 +1,8 @@
+## 0.0.16 (Feb 23, 2020)
+
+* Bug fix: remove event listener when unmount
+* Update dependencies
+
 ## 0.0.15 (Nov 28, 2020)
 
 * Add scrollerRef
