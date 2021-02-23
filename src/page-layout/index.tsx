@@ -27,22 +27,23 @@ const PageLayout = (props: PageLayoutProps) => {
   }, [pageLayoutContainerRef]);
 
   useEffect(() => {
+    // handle viewport resize or device rotate
     if (isWeb) {
-      handleRecalcViewportHeight();
+      handleRecalcViewportHeight(); // init PageLayout height
 
       window.addEventListener('resize', handleRecalcViewportHeight);
       window.addEventListener('orientationchange', handleRecalcViewportHeight);
-    }
 
-    return () => {
-      if (isWeb) {
+      return () => {
         window.removeEventListener('resize', handleRecalcViewportHeight);
         window.removeEventListener(
           'orientationchange',
           handleRecalcViewportHeight
         );
-      }
-    };
+      };
+    } else {
+      return undefined;
+    }
   }, []);
 
   useEffect(() => {
