@@ -37,7 +37,7 @@ const PageLayout = (props: PageLayoutProps) => {
     return () => {
       if (isWeb) {
         window.removeEventListener('resize', handleRecalcViewportHeight);
-        window.addEventListener(
+        window.removeEventListener(
           'orientationchange',
           handleRecalcViewportHeight
         );
