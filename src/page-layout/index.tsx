@@ -1,4 +1,4 @@
-import { createElement, RaxNode, useEffect, useRef } from 'rax';
+import { createElement, RaxNode, useEffect, useRef, CSSProperties } from 'rax';
 import View from 'rax-view';
 import setNativeProps from 'rax-set-native-props';
 import { isWeb } from 'universal-env';
@@ -8,11 +8,12 @@ import { getViewportHeight, useEventCallback } from '../utils';
 
 export interface PageLayoutProps {
   children: RaxNode;
+  containerStyle?: CSSProperties;
   bodyOverflow?: CSSStyleDeclaration['overflow'];
 }
 
 const PageLayout = (props: PageLayoutProps) => {
-  const { children, bodyOverflow } = props;
+  const { children, bodyOverflow, containerStyle } = props;
 
   const pageLayoutContainerRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +52,10 @@ const PageLayout = (props: PageLayoutProps) => {
   }, [bodyOverflow]);
 
   return (
-    <View ref={pageLayoutContainerRef} style={styles.container}>
+    <View
+      ref={pageLayoutContainerRef}
+      style={Object.assign({}, styles.container, containerStyle)}
+    >
       {children}
     </View>
   );
